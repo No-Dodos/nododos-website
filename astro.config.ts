@@ -9,7 +9,7 @@ import pkg from './package.json';
 process.env.HEAD_START_PREVIEW = isPreview ? 'true' : 'false';
 
 const productionUrl = `https://${ pkg.name }.pages.dev`; // overwrite if you have a custom domain
-const localhostPort = 4323; // 4323 is "head" in T9
+const localhostPort = 3636; // 3636 is "dodo" in T9
 export const siteUrl = process.env.CF_PAGES
   ? (process.env.CF_PAGES_BRANCH === 'main')
     ? productionUrl

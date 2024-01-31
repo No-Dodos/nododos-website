@@ -1,8 +1,7 @@
 {
-  "name": "head-start",
+  "name": "nododos-website",
   "type": "module",
   "version": "0.0.1",
-  "license": "ISC",
   "scripts": {
     "astro": "astro",
     "prebuild": "run-s prep",
