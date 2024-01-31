@@ -1,0 +1,40 @@
+#import '@blocks/InternalLink/InternalLink.fragment.graphql'
+
+fragment QuoteBlock on QuoteBlockRecord {
+  id
+  text {
+    links {
+      id
+      ...InternalLink
+    }
+    value
+  }
+  author {
+    ... on PersonRecord {
+      fullName
+      positionTitle
+      color {
+        hex
+      }
+      image {
+        url
+        responsiveImage {
+          aspectRatio
+          base64
+        }
+      }
+      organisation {
+        ... on OrganisationRecord {
+          name
+          image {
+            url
+            responsiveImage {
+              aspectRatio
+              base64
+            }
+          }
+        }
+      }
+    }
+  }
+}

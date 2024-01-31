@@ -2,6 +2,7 @@ import {
   EmbedBlockFragment,
   ImageBlockFragment,
   PagePartialBlockFragment,
+  QuoteBlockFragment,
   TableBlockFragment,
   TextBlockFragment,
   TextImageBlockFragment,
@@ -13,6 +14,7 @@ export type AnyBlock =
   | EmbedBlockFragment
   | ImageBlockFragment
   | PagePartialBlockFragment
+  | QuoteBlockFragment
   | TableBlockFragment
   | TextBlockFragment
   | TextImageBlockFragment

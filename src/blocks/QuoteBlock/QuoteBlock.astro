@@ -1,0 +1,59 @@
+---
+import type { StructuredText } from 'datocms-structured-text-utils';
+import type { QuoteBlockFragment } from '@lib/types/datocms';
+import Text from '@blocks/TextBlock/Text.astro';
+
+interface Props {
+  block: QuoteBlockFragment;
+}
+const { block } = Astro.props;
+const { text, author } = block;
+const defaultColor = '#089B54';
+const imageColor = block.color?.hex || defaultColor;
+const imageSize = 50;
+const imageUrl = author.image 
+  ? `${ author.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces&bg=${ imageColor.replace('#', '') }`
+  : author.organisation.image
+    ? `${ author.organisation.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=clip`
+    : undefined;
+
+---
+
+<blockquote>
+  { imageUrl && (
+    <img alt="" width={ imageSize } height={ imageSize } src={ imageUrl } />
+  )}
+  <div>
+    <Text data={ text as StructuredText } />
+    <footer>
+      <span>{ author.fullName }</span>
+      <span>{ author.positionTitle }</span>
+      <span>{ author.organisation.name }</span>
+    </footer>
+  </div>
+</blockquote>
+
+<style>
+  blockquote {
+    display: flex;
+    align-items: center;
+    margin-block: 0;
+    margin-inline: 0;
+  }
+  blockquote :global(p) {
+    margin-block: 5px;
+    margin-inline: 0;
+  }
+  img {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  footer::before {
+    content: '— ';
+  }
+  footer span:not(:last-child)::after {
+    content: ' • ';
+  }
+</style>
