@@ -1,0 +1,13 @@
+query MeetPerson($locale: SiteLocale!, $slug: String!) {
+  person(locale: $locale, filter: { slug: { eq: $slug } }) {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    name
+    fullName
+    slug
+    meetUrl
+  }
+}

@@ -4,11 +4,10 @@ import graphql from '@rollup/plugin-graphql';
 import sitemap from '@astrojs/sitemap';
 import type { PluginOption } from 'vite';
 import { isPreview } from './config/preview';
-import pkg from './package.json';
 
 process.env.HEAD_START_PREVIEW = isPreview ? 'true' : 'false';
 
-const productionUrl = `https://${ pkg.name }.pages.dev`; // overwrite if you have a custom domain
+const productionUrl = 'https://www.nododos.nl';
 const localhostPort = 3636; // 3636 is "dodo" in T9
 export const siteUrl = process.env.CF_PAGES
   ? (process.env.CF_PAGES_BRANCH === 'main')

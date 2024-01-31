@@ -13,6 +13,8 @@ import LocaleSelector from '@components/LocaleSelector/LocaleSelector.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
 import SeoHead from '@components/SeoHead.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
+import logoReference from '@assets/nododos-logo.svg';
+import '@fontsource/poppins/700.css';
 import '@assets/a11y.css';
 
 interface Props {
@@ -42,7 +44,9 @@ const mainContentId = 'content';
       <SkipLink targetId={ mainContentId } />
       <header { ...datocmsNoIndex }>
         { /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */ }
-        <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>[Logo]</a>
+        <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
+          <img src={ logoReference.src } alt="No Dodos" width="100" height="44" />
+        </a>
         <div>
           <LocaleSelector pageUrls={ pageUrls } />
           <a rel="search" href={ getSearchPathname(locale) }>{ t('search') }</a>
@@ -52,18 +56,29 @@ const mainContentId = 'content';
         <Breadcrumbs items={breadcrumbs} /> 
       ) }
       { /* main element requires tabindex to be focusable, see SkipLink/README.md */ }
-      <main id={ mainContentId } tabindex="-1">
-        <slot />
-      </main>
-      <footer { ...datocmsNoIndex }>
-        <p>Footer</p>
-      </footer>
+      <slot name="main" id={ mainContentId }>
+        <main id={ mainContentId } tabindex="-1">
+          <slot />
+        </main>
+      </slot>
+      <slot name="footer">
+        <footer { ...datocmsNoIndex }>
+          <p>Footer</p>
+        </footer>
+      </slot>
     </PreviewModeProvider>
     <IconSprite />
   </body>
 </html>
 
 <style is:global>
+  :root {
+    --midnight-blue: #02002F;
+    --selective-yellow: #FCB817;
+    --white: #FFFFFF;
+    --zaffre: #4C26E3;
+  }
+
   /* very basic reset */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -71,10 +86,25 @@ const mainContentId = 'content';
   html, body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
   }
   figure {
     margin: 0;
+  }
+
+  html, body {
+    color: var(--white);
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    height: 100%;
+  }
+  body {
+    background-color: var(--midnight-blue);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+  }
+  a {
+    color: var(--white);
   }
 </style>
 <style>
@@ -92,7 +122,6 @@ const mainContentId = 'content';
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    border-bottom: 2px solid black;
   }
   header div {
     display: flex;
@@ -107,6 +136,5 @@ const mainContentId = 'content';
   }
   footer {
     padding: 1rem;
-    border-top: 2px solid black;
   }
 </style>

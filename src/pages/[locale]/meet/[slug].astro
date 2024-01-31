@@ -1,0 +1,74 @@
+---
+import { datocmsCollection, datocmsRequest } from '@lib/datocms';
+import type {
+  MeetPersonQuery,
+  PersonRecord,
+  SiteLocale,
+} from '@lib/types/datocms';
+import type { PageUrl } from '@lib/types/page-url';
+import { locales, t } from '@lib/i18n';
+import Layout from '@layouts/Default.astro';
+import '@assets/a11y.css';
+import query from './_[slug].query.graphql';
+
+export async function getStaticPaths() {
+  interface PersonsCollectionItem {
+    fullname: string;
+    slug?: string;
+    meetUrl?: string;
+  }
+  const persons = await datocmsCollection<PersonsCollectionItem>({
+    collection: 'People',
+    fragment: 'slug, meetUrl',
+  });
+  return persons
+    .filter((person) => person.slug && person.meetUrl)
+    .flatMap((person) => {
+      return locales.map((locale) => ({
+        params: { locale, slug: person.slug },
+      }));
+    });
+}
+
+type Params = {
+  locale: SiteLocale;
+  slug: string;
+};
+const { locale, slug } = Astro.params as Params;
+const variables = { locale, slug };
+const { person } = (await datocmsRequest<MeetPersonQuery>({
+  query,
+  variables,
+})) as { person: PersonRecord };
+const pageUrls = locales.map((locale) => ({
+  locale,
+  pathname: `/${locale}/meet/${person.slug}/`,
+})) as PageUrl[];
+const title = t('schedule_meeting_with_person', { name: person.fullName });
+---
+
+<Layout pageUrls={pageUrls} seoMetaTags={person._seoMetaTags}>
+  <main slot='main'>
+    <h1 class='a11y-sr-only'>{title}</h1>
+    <iframe src={person.meetUrl} title={title}></iframe>
+  </main>
+  <template slot='footer'></template>
+</Layout>
+
+<style is:global>
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+<style>
+  main {
+    flex-grow: 1;
+  }
+  iframe {
+    background-color: white;
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+</style>
