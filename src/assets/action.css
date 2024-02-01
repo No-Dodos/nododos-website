@@ -10,6 +10,7 @@
   border-radius: 50px;
   font-weight: bold;
   text-decoration: none;
+  outline-offset: 5px;
 }
 
 .action--primary {

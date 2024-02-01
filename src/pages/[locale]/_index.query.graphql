@@ -1,6 +1,7 @@
 #import '@blocks/EmbedBlock/EmbedBlock.fragment.graphql'
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
 #import '@blocks/PagePartialBlock/PagePartialBlock.fragment.graphql'
+#import '@blocks/OrganisationsBlock/OrganisationsBlock.fragment.graphql'
 #import '@blocks/PeopleBlock/PeopleBlock.fragment.graphql'
 #import '@blocks/QuoteBlock/QuoteBlock.fragment.graphql'
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
@@ -24,6 +25,9 @@ query HomePage($locale: SiteLocale!) {
       }
       ... on ImageBlockRecord {
         ...ImageBlock
+      }
+      ... on OrganisationsBlockRecord {
+        ...OrganisationsBlock
       }
       ... on PagePartialBlockRecord {
         ...PagePartialBlock

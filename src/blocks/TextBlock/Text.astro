@@ -1,10 +1,10 @@
 ---
-import { isBlock, isHeading, isInlineItem, isItemLink } from 'datocms-structured-text-utils';
+import { isBlock, isInlineItem, isItemLink } from 'datocms-structured-text-utils';
 import type { StructuredText as StructuredTextData } from 'datocms-structured-text-utils';
 import type { PredicateComponentTuple } from '@components/StructuredText/StructuredText';
 import StructuredText from '@components/StructuredText/StructuredText.astro';
 import Block from './nodes/Block.astro';
-import Heading from './nodes/Heading.astro';
+// import Heading from './nodes/Heading.astro';
 import InlineItem from './nodes/InlineItem.astro';
 import ItemLink from './nodes/ItemLink.astro';
 
@@ -19,7 +19,7 @@ const { data = null, components = [] } = Astro.props;
   data={data as StructuredTextData }
   components={[
     // override default components:
-    [isHeading, Heading],
+    // [isHeading, Heading],
     // add custom node components for records that can be embedded in structured text:
     [isBlock, Block],
     [isInlineItem, InlineItem],

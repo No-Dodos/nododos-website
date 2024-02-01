@@ -21,17 +21,29 @@ const { block } = Astro.props;
     container-name: TextBlock;
   }
 
-  @container TextBlock (min-width: 680px) {
-    .layout--columns {
-      columns: 2;
-    }
+  .layout :global(h1, h2) {
+    margin-top: 100px;
+    max-width: 500px;
   }
-
-  .layout {}
   .layout--default {
-    max-width: 480px;
+    max-width: 640px;
   }
   .layout--centered {
     text-align: center;
+    max-width: 800px;
+    margin-inline: auto;
+  }
+  .layout--centered :global(h2) {
+    margin-inline: auto;
+  }
+
+  @container TextBlock (min-width: 680px) {
+    .layout--columns {
+      column-count: 2;
+      column-gap: 120px;
+    }
+    .layout--columns :global(h2) {
+      column-span: all;
+    }
   }
 </style>

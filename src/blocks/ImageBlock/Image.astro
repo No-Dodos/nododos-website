@@ -23,7 +23,7 @@ const getImageSrcSet = (url: string, sizes = defaultSizes, params = {}) => {
   }).join(', ');
 };
 
-const { image, loading = 'lazy' } = Astro.props;
+const { image, loading = 'lazy', params = {} } = Astro.props;
 const altText = image.alt ? image.alt : ''; // default to empty string for accessibility
 const imageUnavailableMessage = t('image_unavailable');
 ---
@@ -35,8 +35,8 @@ const imageUnavailableMessage = t('image_unavailable');
       <img
         alt={ altText }
         loading={ loading }
-        srcset={ getImageSrcSet(image.url) }
-        src={ getImageSrc(image.url) }
+        srcset={ getImageSrcSet(image.url, defaultSizes, params) }
+        src={ getImageSrc(image.url, params) }
         style={{
           aspectRatio: image.responsiveImage.aspectRatio,
           backgroundImage: `url(${image.responsiveImage.base64})`

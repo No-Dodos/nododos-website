@@ -1,0 +1,24 @@
+#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+
+fragment OrganisationsBlock on OrganisationsBlockRecord {
+  id
+  organisations {
+    name
+    image {
+      url
+      responsiveImage {
+        aspectRatio
+        base64
+      }
+    }
+    page {
+      title
+      slug
+      _allSlugLocales {
+        locale
+        value
+      }
+      ...ParentPage
+    }
+  }
+}

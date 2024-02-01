@@ -15,6 +15,7 @@ import SeoHead from '@components/SeoHead.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
 import logoReference from '@assets/nododos-logo.svg';
 import '@fontsource/poppins/700.css';
+import '@fontsource-variable/urbanist';
 import '@assets/a11y.css';
 import '@assets/action.css';
 
@@ -94,16 +95,23 @@ const mainContentId = 'content';
   }
 
   html, body {
-    color: var(--white);
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     height: 100%;
   }
   body {
     background-color: var(--midnight-blue);
+    color: var(--white);
+    font-family: 'Urbanist Variable', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
+  }
+  h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+  }
+  h2 {
+    font-size: 2rem;
   }
   a {
     color: var(--white);
@@ -127,17 +135,16 @@ const mainContentId = 'content';
   header {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 15px;
   }
   header div {
     display: flex;
   }
   main {
     margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    font-size: 20px;
+    padding: 15px;
+    width: 1200px;
+    max-width: calc(100% - 30px);
     line-height: 1.6;
   }
   footer {

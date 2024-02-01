@@ -39,4 +39,5 @@ fragment TextImageBlock on TextImageBlockRecord {
     }
   }
   layout
+  style
 }

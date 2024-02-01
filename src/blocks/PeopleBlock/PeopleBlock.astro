@@ -1,6 +1,7 @@
 ---
 import type { PeopleBlockFragment } from '@lib/types/datocms';
 import { getLocale, t } from '@lib/i18n';
+import Icon from '@components/Icon';
 
 interface Props {
   block: PeopleBlockFragment;
@@ -10,6 +11,8 @@ const locale = getLocale();
 const imageSize = 200;
 const getImageUrl = (person) => `${ person.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces`;
 const markEmail = (email) => email.replace('@', '+contact@');
+const phoneText = (person) => t('call_person_on_phone', { name: person.name, phone: person.phone });
+const emailText = (person) => t('send_email_to_person', { name: person.name, email: markEmail(person.email) });
 ---
 
 <ul>
@@ -27,18 +30,21 @@ const markEmail = (email) => email.replace('@', '+contact@');
         <p>[ person.bio ]</p>
         <div>
           { person.phone && (
-            <a href={`tel:${person.phone}`} class="action--secondary">
-              { t('call_person_on_phone', { name: person.name, phone: person.phone }) }
+            <a href={`tel:${person.phone}`} title={ phoneText(person) } class="action--secondary">
+              <span class="a11y-sr-only">{ phoneText(person) }</span>
+              <Icon name="phone" />
             </a>
           )}
           { person.email && (
-            <a href={`mailto:${markEmail(person.email)}`} class="action--secondary">
-              { t('send_email_to_person', { name: person.name, email: markEmail(person.email) }) }
+            <a href={`mailto:${markEmail(person.email)}`} title={ emailText(person) } class="action--secondary">
+              <span class="a11y-sr-only">{ emailText(person) }</span>
+              <Icon name="email" />
             </a>
           )}
           { person.meetUrl && (
             <a href={`/${locale}/meet/${person.slug}/`} class="action--primary">
-              { t('schedule_meeting_with_person', { name: person.fullName }) }
+              <span class="a11y-sr-only">{ t('schedule_meeting_with_person', { name: person.fullName }) }</span>
+              <Icon name="calendar-check" />
             </a>
           )}
         </div>
@@ -59,7 +65,7 @@ const markEmail = (email) => email.replace('@', '+contact@');
   }
   li {
     padding: 25px;
-    border-radius: 30px;
+    border-radius: 25px;
     background-color: #F5EDE8;
     color: var(--midnight-blue);
     text-align: center;

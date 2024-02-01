@@ -1,0 +1,77 @@
+---
+import type { OrganisationsBlockFragment } from '@lib/types/datocms';
+import { getLocale } from '@lib/i18n';
+import { getPagePath } from '@blocks/InternalLink/index';
+import DynamicTag from '@components/DynamicTag.astro';
+
+interface Props {
+  block: OrganisationsBlockFragment;
+}
+const { block } = Astro.props;
+const locale = getLocale();
+const imageSize = 100;
+const items = block.organisations
+  .filter((item) => item.image)
+  .map((item) => ({
+    url: item.page ? `${getPagePath({ page: item.page, locale })}/` : undefined,
+    image: `${item.image.url}?auto=format&w=${imageSize}&ar=1:1&dpr=3&fit=clip`,
+    name: item.name,
+  }));
+---
+
+<ul>
+  {
+    items.map((item) => (
+      <li>
+        <DynamicTag as={item.url ? 'a' : 'span'} href={item.url}>
+          <img
+            alt={item.name}
+            src={item.image}
+            width={imageSize}
+            height={imageSize}
+          />
+        </DynamicTag>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    /* max-width: 600px; */
+    margin-inline: auto;
+    padding: 0;
+  }
+  li {
+    margin: 20px;
+  }
+  a {
+    display: block;
+    position: relative;
+  }
+  a:focus,
+  a:hover {
+    transform: scale(1.2);
+    transition: transform 0.05s ease-in-out;
+  }
+  a::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -5px;
+    right: -5px;
+    border-radius: 5px;
+    background-color: #089b54;
+  }
+  img {
+    display: block;
+    width: 100px;
+    border-radius: 5px;
+  }
+</style>
