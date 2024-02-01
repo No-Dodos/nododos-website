@@ -1,0 +1,71 @@
+---
+import type { PeopleBlockFragment } from '@lib/types/datocms';
+import { getLocale, t } from '@lib/i18n';
+
+interface Props {
+  block: PeopleBlockFragment;
+}
+const { block } = Astro.props;
+const locale = getLocale();
+const imageSize = 200;
+const getImageUrl = (person) => `${ person.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces`;
+const markEmail = (email) => email.replace('@', '+contact@');
+---
+
+<ul>
+  {
+    block.people.map((person) => (
+      <li>
+        <img 
+          alt="" 
+          src={getImageUrl(person)}
+          width={ imageSize }
+          height={ imageSize }
+          style={{ backgroundColor: person.color?.hex }}
+        />
+        <h3>{person.fullName}</h3>
+        <p>[ person.bio ]</p>
+        <div>
+          { person.phone && (
+            <a href={`tel:${person.phone}`} class="action--secondary">
+              { t('call_person_on_phone', { name: person.name, phone: person.phone }) }
+            </a>
+          )}
+          { person.email && (
+            <a href={`mailto:${markEmail(person.email)}`} class="action--secondary">
+              { t('send_email_to_person', { name: person.name, email: markEmail(person.email) }) }
+            </a>
+          )}
+          { person.meetUrl && (
+            <a href={`/${locale}/meet/${person.slug}/`} class="action--primary">
+              { t('schedule_meeting_with_person', { name: person.fullName }) }
+            </a>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 25px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    padding: 25px;
+    border-radius: 30px;
+    background-color: #F5EDE8;
+    color: var(--midnight-blue);
+    text-align: center;
+  }
+  img {
+    border-radius: 50%;
+    background-color: var(--zaffre);
+  }
+</style>

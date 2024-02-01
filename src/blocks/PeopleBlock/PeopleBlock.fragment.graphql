@@ -1,0 +1,22 @@
+fragment PeopleBlock on PeopleBlockRecord {
+  id
+  people {
+    name
+    fullName
+    positionTitle
+    slug
+    phone
+    email
+    meetUrl
+    color {
+      hex
+    }
+    image {
+      url
+      responsiveImage {
+        aspectRatio
+        base64
+      }
+    }
+  }
+}

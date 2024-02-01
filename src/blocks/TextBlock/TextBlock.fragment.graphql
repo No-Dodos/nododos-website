@@ -6,6 +6,7 @@
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
 
 fragment TextBlock on TextBlockRecord {
+  layout
   text {
     blocks {
       __typename

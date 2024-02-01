@@ -28,7 +28,6 @@ export async function getStaticPaths() {
       }
     `,
   });
-
   return pages.flatMap((page) => {
     const locales = page._allSlugLocales.map((slug) => slug.locale);
     return locales.map((locale) => {

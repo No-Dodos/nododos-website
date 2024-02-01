@@ -1,0 +1,26 @@
+:root {
+  --midnight-blue: #02002F;
+  --selective-yellow: #FCB817;
+  --white: #FFFFFF;
+  --zaffre: #4C26E3;
+}
+
+.theme--dark {
+  --color-text: var(--white);
+  --color-highlight: var(--selective-yellow);
+  --color-action-primary-background: var(--zaffre);
+  --color-action-primary-text: var(--white);
+  --color-action-primary-background-focus: var(--selective-yellow);
+  --color-action-primary-text-focus: var(--midnight-blue);
+  --color-action-secondary-background: var(--white);
+  --color-action-secondary-text: var(--zaffre);
+  --color-action-secondary-text-focus: var(--selective-yellow);
+}
+
+.theme--light {}
+
+.theme--purple {}
+
+.theme--orange {}
+
+.theme--green {}

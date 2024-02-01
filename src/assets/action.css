@@ -1,0 +1,36 @@
+.action--default {
+  display: inline;
+}
+
+.action--primary,
+.action--secondary {
+  display: inline-block;
+  margin-inline: 8px;
+  padding: 16px;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.action--primary {
+  background-color: var(--zaffre);
+  color: var(--white);
+  border: 2px solid transparent;
+}
+
+.action--primary:focus,
+.action--primary:hover {
+  background-color: var(--selective-yellow);
+  color: var(--midnight-blue);
+}
+
+.action--secondary {
+  background-color: var(--white);
+  color: var(--zaffre);
+  border: 2px solid currentColor;
+}
+
+.action--secondary:focus,
+.action--secondary:hover {
+  color: var(--selective-yellow);
+}

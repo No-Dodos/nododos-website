@@ -9,4 +9,29 @@ interface Props {
 const { block } = Astro.props;
 ---
 
-<Text data={ block.text as StructuredText } />
+<div class="component">
+  <div class:list={['layout', `layout--${block.layout}`]}>
+    <Text data={ block.text as StructuredText } />
+  </div>
+</div>
+
+<style>
+  .component {
+    container-type: inline-size;
+    container-name: TextBlock;
+  }
+
+  @container TextBlock (min-width: 680px) {
+    .layout--columns {
+      columns: 2;
+    }
+  }
+
+  .layout {}
+  .layout--default {
+    max-width: 480px;
+  }
+  .layout--centered {
+    text-align: center;
+  }
+</style>
