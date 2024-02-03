@@ -23,6 +23,7 @@ query Page($locale: SiteLocale!, $slug: String!) {
       content
       tag
     }
+    theme
     ...ParentPage
     bodyBlocks {
       __typename

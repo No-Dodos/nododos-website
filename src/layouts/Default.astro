@@ -10,10 +10,10 @@ import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs.astro';
 import type { Breadcrumb } from '@components/Breadcrumbs';
 import IconSprite from '@components/Icon/IconSprite.astro';
 import LocaleSelector from '@components/LocaleSelector/LocaleSelector.astro';
+import NoDodosLogo from '@components/NoDodosLogo.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
 import SeoHead from '@components/SeoHead.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
-import logoReference from '@assets/nododos-logo.svg';
 import '@fontsource/poppins/700.css';
 import '@fontsource-variable/urbanist';
 import '@assets/a11y.css';
@@ -24,12 +24,14 @@ interface Props {
   breadcrumbs?: Breadcrumb[];
   pageUrls: PageUrl[];
   seoMetaTags: Tag[];
+  theme?: string | null;
 }
 
 const { locale = defaultLocale } = Astro.params as { locale?: SiteLocale };
 const data = await datocmsRequest<DefaultLayoutQuery>({ query, variables: { locale } }) as { site: Site };
 const { breadcrumbs = [], pageUrls, seoMetaTags } = Astro.props;
 const mainContentId = 'content';
+const theme = ['dark', 'light', 'green', 'orange'].includes(Astro.props.theme || '') ? Astro.props.theme : 'dark';
 ---
 
 <!DOCTYPE html>
@@ -42,13 +44,13 @@ const mainContentId = 'content';
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
     />
   </head>
-  <body class="theme--dark">
+  <body class:list={[`theme--${theme}`]} >
     <PreviewModeProvider>
       <SkipLink targetId={ mainContentId } />
       <header class="layout" { ...datocmsNoIndex }>
         { /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */ }
-        <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
-          <img src={ logoReference.src } alt="No Dodos" width="100" height="44" />
+        <a rel="home" href="/" class="logo" aria-label={ t('go_to_home_page', { siteName }) }>
+          <NoDodosLogo />
         </a>
         <div>
           <LocaleSelector pageUrls={ pageUrls } />
@@ -69,7 +71,7 @@ const mainContentId = 'content';
       <slot name="footer">
         <footer role="contentinfo" class="layout" { ...datocmsNoIndex }>     
           <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
-            <img src={ logoReference.src } alt="No Dodos" width="100" height="44" />
+            <NoDodosLogo />
           </a>
         </footer>
       </slot>
@@ -98,6 +100,7 @@ const mainContentId = 'content';
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: 'Urbanist Variable', sans-serif;
+    overflow-y: scroll;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;

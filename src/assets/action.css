@@ -2,7 +2,8 @@ a,
 .action--default {
   display: inline;
   color: var(--color-action-default-text);
-  }
+  fill: currentColor;
+}
   
   a:focus,
   a:hover,

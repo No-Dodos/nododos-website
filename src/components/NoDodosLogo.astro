@@ -1,0 +1,13 @@
+---
+const { default: logoSvg } = await import('@assets/nododos-logo.svg?raw');
+const { props } = Astro.props;
+---
+
+<span
+  role='img'
+  aria-label='No Dodos'
+  style={{ display: 'inline-block', width: '100px', height: '44px' }}
+  {...props}
+>
+  <Fragment set:html={logoSvg} />
+</span>

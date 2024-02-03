@@ -43,6 +43,7 @@ const pageUrls = (page._allSlugLocales || []).map(({ locale }) => ({
   breadcrumbs={breadcrumbs}
   pageUrls={pageUrls}
   seoMetaTags={page._seoMetaTags}
+  theme={page.theme}
 >
   <PreviewModeSubscription query={query} variables={variables} />
   {
