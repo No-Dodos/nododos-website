@@ -1,6 +1,7 @@
 import { 
   EmbedBlockFragment,
   ImageBlockFragment,
+  InternalLinkBlockFragment,
   OrganisationsBlockFragment,
   PagePartialBlockFragment,
   PeopleBlockFragment,
@@ -15,6 +16,7 @@ import {
 export type AnyBlock =
   | EmbedBlockFragment
   | ImageBlockFragment
+  | InternalLinkBlockFragment
   | OrganisationsBlockFragment
   | PagePartialBlockFragment
   | PeopleBlockFragment

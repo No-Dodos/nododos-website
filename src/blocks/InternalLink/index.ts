@@ -1,4 +1,23 @@
-import type { PageRecord, SiteLocale } from '@lib/types/datocms';
+import type { InternalLinkBlockFragment, InternalLinkFragment, PageRecord, SiteLocale } from '@lib/types/datocms';
+/**
+ * Determine pathname based on locale and page record type
+ */
+export const getHref = (
+  { locale, page }: 
+    { locale: SiteLocale, page: InternalLinkFragment['page'] | InternalLinkBlockFragment['page'] 
+  }) => {
+  const pathParams = page?.__typename 
+    ? {
+      HomePageRecord: [],
+      PageRecord: [getPagePath({ page: page as PageRecord, locale })],
+    }[page.__typename]
+    : [];
+  
+  return `/${[
+    locale,
+    ...pathParams,
+  ].filter(Boolean).join('/')}/`;
+};
 
 type AnyPage = PageRecord;
 type MaybeSlug = string | undefined;

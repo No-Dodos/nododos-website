@@ -20,8 +20,8 @@
   --color-action-primary-text: var(--white);
   --color-action-primary-background-focus: var(--color-highlight);
     --color-action-primary-text-focus: var(--white);
-  --color-action-secondary-background: var(--white);
-  --color-action-secondary-text: var(--zaffre);
+  --color-action-secondary-background: transparent;
+    --color-action-secondary-text: var(--white);
   --color-action-secondary-text-focus: var(--color-highlight);
 }
 

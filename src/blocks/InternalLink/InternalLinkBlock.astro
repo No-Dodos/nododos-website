@@ -1,0 +1,16 @@
+---
+import type { InternalLinkBlockFragment, SiteLocale } from '@lib/types/datocms';
+import { getLocale } from '@lib/i18n';
+import { getHref } from './index';
+
+interface Props {
+  block: InternalLinkBlockFragment;
+}
+const { block, ...props } = Astro.props;
+const locale = getLocale() as SiteLocale;
+const href = getHref({ locale, page: block.page });
+---
+
+<a href={href} class:list={[`action--${block.style || 'default'}`]} {...props}
+>{block.title}</a
+>

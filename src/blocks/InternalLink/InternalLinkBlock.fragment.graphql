@@ -1,6 +1,7 @@
 #import '@blocks/InternalLink/ParentPage.fragment.graphql'
 
-fragment InternalLink on InternalLinkRecord {
+fragment InternalLinkBlock on InternalLinkBlockRecord {
+  id
   title
   page {
     __typename

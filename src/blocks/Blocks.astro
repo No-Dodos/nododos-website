@@ -2,6 +2,7 @@
 import type { AnyBlock } from './Blocks';
 import EmbedBlock from './EmbedBlock/EmbedBlock.astro';
 import ImageBlock from './ImageBlock/ImageBlock.astro';
+import InternalLinkBlock from './InternalLink/InternalLinkBlock.astro';
 import OrganisationsBlock from './OrganisationsBlock/OrganisationsBlock.astro';
 import PagePartialBlock from './PagePartialBlock/PagePartialBlock.astro';
 import PeopleBlock from './PeopleBlock/PeopleBlock.astro';
@@ -15,6 +16,7 @@ import VideoEmbedBlock from './VideoEmbedBlock/VideoEmbedBlock.astro';
 const blocksByTypename = {
   EmbedBlockRecord: EmbedBlock,
   ImageBlockRecord: ImageBlock,
+  InternalLinkBlockRecord: InternalLinkBlock,
   OrganisationsBlockRecord: OrganisationsBlock,
   PagePartialBlockRecord: PagePartialBlock,
   PeopleBlockRecord: PeopleBlock,

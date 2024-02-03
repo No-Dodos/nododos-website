@@ -1,4 +1,5 @@
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
+#import '@blocks/InternalLink/InternalLinkBlock.fragment.graphql'
 #import '@blocks/InternalLink/InternalLink.fragment.graphql'
 #import '@blocks/QuoteBlock/QuoteBlock.fragment.graphql'
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
@@ -12,6 +13,9 @@ fragment TextBlock on TextBlockRecord {
       __typename
       ... on ImageBlockRecord {
         ...ImageBlock
+      }
+      ... on InternalLinkBlockRecord {
+        ...InternalLinkBlock
       }
       ... on QuoteBlockRecord {
         ...QuoteBlock

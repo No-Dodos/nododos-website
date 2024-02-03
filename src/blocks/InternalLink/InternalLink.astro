@@ -1,37 +1,18 @@
 ---
-import type { InternalLinkFragment, PageRecord, SiteLocale } from '@lib/types/datocms';
-import { getPagePath } from './index';
+import type { InternalLinkFragment, SiteLocale } from '@lib/types/datocms';
+import { getLocale } from '@lib/i18n';
+import { getHref } from './index';
 
 interface Props {
   link: InternalLinkFragment;
   openInNewTab?: boolean;
 }
-type Params = {
-  locale: SiteLocale;
-};
 
-const { link, openInNewTab } = Astro.props;
-const { locale } = Astro.params as Params;
+const { link, openInNewTab, ...props } = Astro.props;
 const { title, page } = link;
-
-// Determine pathname based on record type
-const getHref = (
-  { locale, page }: 
-    { locale: SiteLocale, page: InternalLinkFragment['page'] 
-  }) => {
-  const pathParams = {
-    HomePageRecord: [],
-    PageRecord: [getPagePath({ page: page as PageRecord, locale })],
-  }[page.__typename];
-  
-  return `/${[
-    locale,
-    ...pathParams,
-  ].filter(Boolean).join('/')}/`;
-};
-
+const locale = getLocale() as SiteLocale;
 const href = getHref({ locale, page });
 const target = openInNewTab ? '_blank' : null;
 ---
 
-<a href={href} {target}><slot>{title}</slot></a>
+<a href={href} {target} class:list={[`action--${link.style || 'default'}`]} { ...props}><slot>{title}</slot></a>

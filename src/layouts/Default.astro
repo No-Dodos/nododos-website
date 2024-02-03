@@ -69,6 +69,7 @@ const theme = ['dark', 'light', 'green', 'orange'].includes(Astro.props.theme ||
         </main>
       </slot>
       <slot name="footer">
+        <!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
         <footer role="contentinfo" class="layout" { ...datocmsNoIndex }>     
           <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
             <NoDodosLogo />
