@@ -44,30 +44,32 @@ const mainContentId = 'content';
   <body>
     <PreviewModeProvider>
       <SkipLink targetId={ mainContentId } />
-      <header { ...datocmsNoIndex }>
-        { /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */ }
-        <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
-          <img src={ logoReference.src } alt="No Dodos" width="100" height="44" />
-        </a>
-        <div>
-          <LocaleSelector pageUrls={ pageUrls } />
-          <a rel="search" href={ getSearchPathname(locale) }>{ t('search') }</a>
-        </div>
-      </header>
-      { (breadcrumbs.length > 0) && (
-        <Breadcrumbs items={breadcrumbs} /> 
-      ) }
-      { /* main element requires tabindex to be focusable, see SkipLink/README.md */ }
-      <slot name="main" id={ mainContentId }>
-        <main id={ mainContentId } tabindex="-1">
-          <slot />
-        </main>
-      </slot>
-      <slot name="footer">
-        <footer { ...datocmsNoIndex }>
-          <p>Footer</p>
-        </footer>
-      </slot>
+      <div class="layout">
+        <header { ...datocmsNoIndex }>
+          { /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */ }
+          <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
+            <img src={ logoReference.src } alt="No Dodos" width="100" height="44" />
+          </a>
+          <div>
+            <LocaleSelector pageUrls={ pageUrls } />
+            <a rel="search" href={ getSearchPathname(locale) }>{ t('search') }</a>
+          </div>
+        </header>
+        { (breadcrumbs.length > 0) && (
+          <Breadcrumbs items={breadcrumbs} /> 
+        ) }
+        { /* main element requires tabindex to be focusable, see SkipLink/README.md */ }
+        <slot name="main" id={ mainContentId }>
+          <main id={ mainContentId } tabindex="-1">
+            <slot />
+          </main>
+        </slot>
+        <slot name="footer">
+          <footer { ...datocmsNoIndex }>
+            <p>Footer</p>
+          </footer>
+        </slot>
+      </div>
     </PreviewModeProvider>
     <IconSprite />
   </body>
@@ -77,6 +79,7 @@ const mainContentId = 'content';
   :root {
     --midnight-blue: #02002F;
     --selective-yellow: #FCB817;
+    --saffron: #f2ba38;
     --peach: #FFE6B0;
     --white: #FFFFFF;
     --zaffre: #4C26E3;
@@ -135,19 +138,20 @@ const mainContentId = 'content';
   header {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
   }
   header div {
     display: flex;
   }
   main {
+    line-height: 1.6;
+  }
+
+  footer {}
+
+  .layout {
     margin: auto;
     padding: 15px;
     width: 1200px;
     max-width: calc(100% - 30px);
-    line-height: 1.6;
-  }
-  footer {
-    padding: 1rem;
   }
 </style>

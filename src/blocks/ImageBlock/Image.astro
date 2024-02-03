@@ -23,43 +23,38 @@ const getImageSrcSet = (url: string, sizes = defaultSizes, params = {}) => {
   }).join(', ');
 };
 
-const { image, loading = 'lazy', params = {} } = Astro.props;
+const { image, loading = 'lazy', params = {}, ...props } = Astro.props;
 const altText = image.alt ? image.alt : ''; // default to empty string for accessibility
 const imageUnavailableMessage = t('image_unavailable');
 ---
 
-<figure>
-  {
-    image.responsiveImage
-      ? // bitmap images have Imgix generated props (responsiveImage.*):
-      <img
-        alt={ altText }
-        loading={ loading }
-        srcset={ getImageSrcSet(image.url, defaultSizes, params) }
-        src={ getImageSrc(image.url, params) }
-        style={{
-          aspectRatio: image.responsiveImage.aspectRatio,
-          backgroundImage: `url(${image.responsiveImage.base64})`
-        }}
-        data-unavailable={ imageUnavailableMessage }
-      />
-      : // vector images do not have Imgix generated props, so using as is:
-      <img 
-        alt={ altText }
-        loading={ loading }
-        src={ image.url } 
-        style={{
-          aspectRatio: `${image.width}/${image.height}`,
-        }}
-        data-unavailable={ imageUnavailableMessage }
-      />
-  }
-  { image.title && (
-    <figcaption>
-      { image.title }
-    </figcaption>
-  )}
-</figure>
+{
+  image.responsiveImage
+    ? // bitmap images have Imgix generated props (responsiveImage.*):
+    <img
+      alt={ altText }
+      loading={ loading }
+      srcset={ getImageSrcSet(image.url, defaultSizes, params) }
+      src={ getImageSrc(image.url, params) }
+      style={{
+        aspectRatio: image.responsiveImage.aspectRatio,
+        backgroundImage: `url(${image.responsiveImage.base64})`
+      }}
+      data-unavailable={ imageUnavailableMessage }
+      {...props}
+    />
+    : // vector images do not have Imgix generated props, so using as is:
+    <img 
+      alt={ altText }
+      loading={ loading }
+      src={ image.url } 
+      style={{
+        aspectRatio: `${image.width}/${image.height}`,
+      }}
+      data-unavailable={ imageUnavailableMessage }
+      {...props}
+    />
+}
 
 <style>
 /* functional styling */
@@ -88,9 +83,4 @@ img {
   padding-top: calc(50% - 1em);
   background-color: #f1f1f1;
  }
-
- /* basic styling, can be removed */
- figcaption {
-    text-align: center;
-  }
 </style>

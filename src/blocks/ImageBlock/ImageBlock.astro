@@ -1,5 +1,6 @@
 ---
 import type { ImageBlockFragment } from '@lib/types/datocms';
+import Figure from './Figure.astro';
 import Image from './Image.astro';
 
 interface Props {
@@ -9,4 +10,6 @@ interface Props {
 const { block } = Astro.props;
 ---
 
-<Image image={ block.image } />
+<Figure title={ block.image.title }>
+  <Image image={ block.image } />
+</Figure>

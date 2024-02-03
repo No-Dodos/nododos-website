@@ -2,6 +2,7 @@
 import type { StructuredText } from 'datocms-structured-text-utils';
 import type { TextImageBlockFragment } from '@lib/types/datocms';
 import Text from '@blocks/TextBlock/Text.astro';
+import Figure from '@blocks/ImageBlock/Figure.astro';
 import Image from '@blocks/ImageBlock/Image.astro';
 
 interface Props {
@@ -16,11 +17,15 @@ const imageParams =
 
 <div class="component">
   <div class:list={['layout', `layout--${block.layout}`]}>
-    <div class="layout__item text">
+    <div class="layout__item">
       <Text data={ block.text as StructuredText } />
     </div>
-    <div class:list={['layout__item', 'image', `image--${block.style}`]}>
-      <Image image={ block.image } params={ imageParams } />
+    <div class="layout__item layout__item--image">
+      <Figure title={ block.image.title }>
+        <div class:list={['image-canvas', `image-canvas--${block.style}`]}>
+          <Image image={ block.image } params={ imageParams } class:list={['image', `image--${block.style}`]} />
+        </div>
+      </Figure>
     </div>
   </div>
 </div>
@@ -32,11 +37,18 @@ const imageParams =
   container-name: component;
 }
 
+.image-canvas {
+  max-width: 500px;
+  margin-inline: auto;
+  margin-block-start: 50px;
+}
+
 /* side-by-side layout, if component is wide enough: */
 @container component (min-width: 760px) {
   .layout {
     display: flex;
     align-items: center;
+    gap: 100px;
   }
   .layout--text-image {
     flex-direction: row;
@@ -48,8 +60,16 @@ const imageParams =
     flex: 1;
     width: 50%;
   }
+
+  .image-canvas {
+    margin-block-start: 0;
+    max-width: initial;
+  }
+  .image-canvas--cards {
+    margin-inline-start: auto;
+  }
   .image--circle :global(figure) {
-    max-width: 500px;
+    max-width: 400px;
   }
   .layout--text-image .image--circle :global(figure) {
     margin-inline-start: auto;
@@ -62,10 +82,47 @@ const imageParams =
 .layout :global(h1, h2) {
   max-width: 500px;
 }
-
-.image--circle :global(img) {
-  aspect-ratio: 1 !important;
+.layout__item--image {
+  margin-block: 30px;
+}
+.image--rounded {
+  border-radius: 10px;
+}
+.image--circle {
+  aspect-ratio: 1;
   border-radius: 50%;
   overflow: hidden;
+}
+
+.image-canvas--cards {
+  position: relative;
+  max-width: 400px;
+}
+.image-canvas--cards::before,
+.image-canvas--cards::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 95%;
+  height: 80%;
+  border-radius: 10px;
+}
+.image-canvas--cards::before {
+  z-index: -1;
+  background-color: var(--saffron);
+  transform-origin: 30% 95%;
+  transform: rotate(-25deg);
+}
+.image-canvas--cards::after {
+  z-index: -2;
+  background-color: var(--zaffre);
+  transform-origin: 5% 50%;
+  transform: rotate(20deg);
+}
+.image--cards {
+  border-radius: 10px;
+  margin-block: 30%;
 }
 </style>
