@@ -1,26 +1,75 @@
 :root {
-  --midnight-blue: #02002F;
-  --selective-yellow: #FCB817;
-  --white: #FFFFFF;
-  --zaffre: #4C26E3;
+  --midnight-blue: #02002f;
+    --pumpkin: #f2720f;
+    --selective-yellow: #fcb817;
+    --saffron: #f2ba38;
+    --peach: #FFE6B0;
+    --dawn-pink: #f5ede8;
+    --white: #ffffff;
+    --zaffre: #4c26e3;
+    --british-racing-green: #044928;
 }
 
 .theme--dark {
   --color-text: var(--white);
+  --color-background: var(--midnight-blue);
   --color-highlight: var(--selective-yellow);
+  --color-action-default-text: var(--color-text);
+    --color-action-default-text-focus: var(--color-highlight);
   --color-action-primary-background: var(--zaffre);
   --color-action-primary-text: var(--white);
-  --color-action-primary-background-focus: var(--selective-yellow);
-  --color-action-primary-text-focus: var(--midnight-blue);
+  --color-action-primary-background-focus: var(--color-highlight);
+    --color-action-primary-text-focus: var(--white);
   --color-action-secondary-background: var(--white);
   --color-action-secondary-text: var(--zaffre);
-  --color-action-secondary-text-focus: var(--selective-yellow);
+  --color-action-secondary-text-focus: var(--color-highlight);
 }
 
-.theme--light {}
+.theme--light {
+  --color-text: var(--midnight-blue);
+  --color-background: var(--dawn-pink);
+  --color-highlight: var(--zaffre);
+  --color-action-default-text: var(--color-text);
+  --color-action-default-text-focus: var(--color-highlight);
+  --color-action-primary-background: var(--zaffre);
+  --color-action-primary-text: var(--white);
+  --color-action-primary-background-focus: var(--saffron);
+  --color-action-primary-text-focus: var(--white);
+  --color-action-secondary-background: var(--white);
+  --color-action-secondary-text: var(--zaffre);
+  --color-action-secondary-text-focus: var(--saffron);
+}
 
-.theme--purple {}
+.theme--purple {
+  --color-background: var(--zaffre);
+}
 
-.theme--orange {}
+.theme--orange {
+  --color-text: var(--white);
+  --color-background: var(--pumpkin);
+  --color-highlight: var(--british-racing-green);
+  --color-action-default-text: var(--color-text);
+  --color-action-default-text-focus: var(--british-racing-green);
+  --color-action-primary-background: var(--zaffre);
+  --color-action-primary-text: var(--white);
+  --color-action-primary-background-focus: var(--british-racing-green);
+  --color-action-primary-text-focus: var(--white);
+  --color-action-secondary-background: var(--white);
+  --color-action-secondary-text: var(--zaffre);
+  --color-action-secondary-text-focus: var(--british-racing-green);
+}
 
-.theme--green {}
+.theme--green {
+  --color-text: var(--white);
+  --color-background: var(--british-racing-green);
+  --color-highlight: var(--pumpkin);
+  --color-action-default-text: var(--color-text);
+  --color-action-default-text-focus: var(--pumpkin);
+  --color-action-primary-background: var(--zaffre);
+  --color-action-primary-text: var(--white);
+  --color-action-primary-background-focus: var(--pumpkin);
+  --color-action-primary-text-focus: var(--white);
+  --color-action-secondary-background: var(--white);
+  --color-action-secondary-text: var(--zaffre);
+  --color-action-secondary-text-focus: var(--pumpkin);
+}

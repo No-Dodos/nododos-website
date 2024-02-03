@@ -2,7 +2,7 @@
 import type { DefaultLayoutQuery, Site, SiteLocale, Tag } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
 import { defaultLocale, t } from '@lib/i18n';
-import { datocmsNoIndex, getSearchPathname } from '@lib/search';
+import { datocmsNoIndex /*, getSearchPathname */ } from '@lib/search';
 import { siteName } from '@lib/seo';
 import type { PageUrl } from '@lib/seo';
 import query from './default.query.graphql';
@@ -17,6 +17,7 @@ import logoReference from '@assets/nododos-logo.svg';
 import '@fontsource/poppins/700.css';
 import '@fontsource-variable/urbanist';
 import '@assets/a11y.css';
+import '@assets/theme.css';
 import '@assets/action.css';
 
 interface Props {
@@ -41,50 +42,43 @@ const mainContentId = 'content';
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
     />
   </head>
-  <body>
+  <body class="theme--dark">
     <PreviewModeProvider>
       <SkipLink targetId={ mainContentId } />
-      <div class="layout">
-        <header { ...datocmsNoIndex }>
-          { /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */ }
+      <header class="layout" { ...datocmsNoIndex }>
+        { /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */ }
+        <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
+          <img src={ logoReference.src } alt="No Dodos" width="100" height="44" />
+        </a>
+        <div>
+          <LocaleSelector pageUrls={ pageUrls } />
+          { /* <a rel="search" href={ getSearchPathname(locale) }>{ t('search') }</a> */ }
+        </div>
+      </header>
+      { (breadcrumbs.length > 0) && (
+        <div class="layout">
+          <Breadcrumbs items={breadcrumbs} /> 
+        </div>
+      ) }
+      { /* main element requires tabindex to be focusable, see SkipLink/README.md */ }
+      <slot name="main" id={ mainContentId }>
+        <main id={ mainContentId } tabindex="-1" class="layout">
+          <slot />
+        </main>
+      </slot>
+      <slot name="footer">
+        <footer role="contentinfo" class="layout" { ...datocmsNoIndex }>     
           <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
             <img src={ logoReference.src } alt="No Dodos" width="100" height="44" />
           </a>
-          <div>
-            <LocaleSelector pageUrls={ pageUrls } />
-            <a rel="search" href={ getSearchPathname(locale) }>{ t('search') }</a>
-          </div>
-        </header>
-        { (breadcrumbs.length > 0) && (
-          <Breadcrumbs items={breadcrumbs} /> 
-        ) }
-        { /* main element requires tabindex to be focusable, see SkipLink/README.md */ }
-        <slot name="main" id={ mainContentId }>
-          <main id={ mainContentId } tabindex="-1">
-            <slot />
-          </main>
-        </slot>
-        <slot name="footer">
-          <footer { ...datocmsNoIndex }>
-            <p>Footer</p>
-          </footer>
-        </slot>
-      </div>
+        </footer>
+      </slot>
     </PreviewModeProvider>
     <IconSprite />
   </body>
 </html>
 
 <style is:global>
-  :root {
-    --midnight-blue: #02002F;
-    --selective-yellow: #FCB817;
-    --saffron: #f2ba38;
-    --peach: #FFE6B0;
-    --white: #FFFFFF;
-    --zaffre: #4C26E3;
-  }
-
   /* very basic reset */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -101,8 +95,8 @@ const mainContentId = 'content';
     height: 100%;
   }
   body {
-    background-color: var(--midnight-blue);
-    color: var(--white);
+    background-color: var(--color-background);
+    color: var(--color-text);
     font-family: 'Urbanist Variable', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
@@ -116,11 +110,8 @@ const mainContentId = 'content';
   h2 {
     font-size: 2rem;
   }
-  a {
-    color: var(--white);
-  }
   mark {
-    color: var(--selective-yellow);
+    color: var(--color-highlight);
     background-color: transparent;
   }
 </style>
@@ -138,6 +129,8 @@ const mainContentId = 'content';
   header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-block: 15px;
   }
   header div {
     display: flex;
@@ -146,11 +139,14 @@ const mainContentId = 'content';
     line-height: 1.6;
   }
 
-  footer {}
+  footer {
+    margin-top: 100px;
+    padding-block: 15px;
+  }
 
   .layout {
-    margin: auto;
-    padding: 15px;
+    margin-inline: auto;
+    padding-inline: 15px;
     width: 1200px;
     max-width: calc(100% - 30px);
   }

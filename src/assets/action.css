@@ -1,5 +1,14 @@
+a,
 .action--default {
   display: inline;
+  color: var(--color-action-default-text);
+  }
+  
+  a:focus,
+  a:hover,
+  .action--default:focus,
+  .action--default:hover {
+    color: var(--color-action-default-text-focus);
 }
 
 .action--primary,
@@ -14,24 +23,24 @@
 }
 
 .action--primary {
-  background-color: var(--zaffre);
-  color: var(--white);
+  background-color: var(--color-action-primary-background);
+    color: var(--color-action-primary-text);
   border: 2px solid transparent;
 }
 
 .action--primary:focus,
 .action--primary:hover {
-  background-color: var(--selective-yellow);
-  color: var(--midnight-blue);
+  background-color: var(--color-action-primary-background-focus);
+    color: var(--color-action-primary-text-focus);
 }
 
 .action--secondary {
-  background-color: var(--white);
-  color: var(--zaffre);
+  background-color: var(--color-action-secondary-background);
+    color: var(--color-action-secondary-text);
   border: 2px solid currentColor;
 }
 
 .action--secondary:focus,
 .action--secondary:hover {
-  color: var(--selective-yellow);
+  color: var(--color-action-secondary-text-focus);
 }

@@ -18,7 +18,7 @@ const emailText = (person) => t('send_email_to_person', { name: person.name, ema
 <ul>
   {
     block.people.map((person) => (
-      <li>
+      <li class="theme--light">
         <img 
           alt="" 
           src={getImageUrl(person)}
@@ -66,8 +66,8 @@ const emailText = (person) => t('send_email_to_person', { name: person.name, ema
   li {
     padding: 25px;
     border-radius: 25px;
-    background-color: #F5EDE8;
-    color: var(--midnight-blue);
+    background-color: var(--color-background);
+    color: var(--color-text);
     text-align: center;
   }
   img {

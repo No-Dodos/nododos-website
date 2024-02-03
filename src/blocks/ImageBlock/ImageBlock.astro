@@ -10,6 +10,15 @@ interface Props {
 const { block } = Astro.props;
 ---
 
-<Figure title={ block.image.title }>
-  <Image image={ block.image } />
+<Figure title={ block.image.title } class:list={['figure']}>
+  <Image image={ block.image } class:list={[`image--${block.style}`]} />
 </Figure>
+
+<style>
+  .figure {
+    margin-block: 10px;
+  }
+  .image--rounded {
+    border-radius: 10px;
+  }
+</style>

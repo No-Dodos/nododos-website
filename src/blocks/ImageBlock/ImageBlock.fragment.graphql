@@ -11,4 +11,5 @@ fragment ImageBlock on ImageBlockRecord {
       base64
     }
   }
+  style
 }
