@@ -5,6 +5,9 @@ fragment InternalLinkBlock on InternalLinkBlockRecord {
   title
   page {
     __typename
+    ... on HomePageRecord {
+      title
+    }
     ... on PageRecord {
       title
       slug
@@ -14,8 +17,9 @@ fragment InternalLinkBlock on InternalLinkBlockRecord {
       }
       ...ParentPage
     }
-    ... on HomePageRecord {
-      title
+    ... on PersonRecord {
+      name
+      slug
     }
   }
   style

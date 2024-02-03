@@ -4,6 +4,9 @@ fragment InternalLink on InternalLinkRecord {
   title
   page {
     __typename
+    ... on HomePageRecord {
+      title
+    }
     ... on PageRecord {
       title
       slug
@@ -13,8 +16,9 @@ fragment InternalLink on InternalLinkRecord {
       }
       ...ParentPage
     }
-    ... on HomePageRecord {
-      title
+    ... on PersonRecord {
+      name
+      slug
     }
   }
   style

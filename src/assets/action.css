@@ -38,10 +38,11 @@ a,
 .action--secondary {
   background-color: var(--color-action-secondary-background);
     color: var(--color-action-secondary-text);
-  border: 2px solid currentColor;
+  border: 2px solid var(--color-action-secondary-border);
 }
 
 .action--secondary:focus,
 .action--secondary:hover {
   color: var(--color-action-secondary-text-focus);
+  border-color: var(--color-action-secondary-border-focus, currentColor);
 }

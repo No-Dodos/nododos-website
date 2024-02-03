@@ -11,7 +11,7 @@
 }
 
 .theme--dark {
-  --color-text: var(--white);
+  --color-text: var(--dawn-pink);
   --color-background: var(--midnight-blue);
   --color-highlight: var(--selective-yellow);
   --color-action-default-text: var(--color-text);
@@ -22,6 +22,7 @@
     --color-action-primary-text-focus: var(--white);
   --color-action-secondary-background: transparent;
     --color-action-secondary-text: var(--white);
+    --color-action-secondary-border: var(--zaffre);
   --color-action-secondary-text-focus: var(--color-highlight);
 }
 
@@ -35,8 +36,9 @@
   --color-action-primary-text: var(--white);
   --color-action-primary-background-focus: var(--saffron);
   --color-action-primary-text-focus: var(--white);
-  --color-action-secondary-background: var(--white);
+  --color-action-secondary-background: var(--dawn-pink);
   --color-action-secondary-text: var(--zaffre);
+  --color-action-secondary-border: var(--zaffre);
   --color-action-secondary-text-focus: var(--saffron);
 }
 
@@ -56,6 +58,7 @@
   --color-action-primary-text-focus: var(--white);
   --color-action-secondary-background: var(--white);
   --color-action-secondary-text: var(--zaffre);
+  --color-action-secondary-border: var(--zaffre);
   --color-action-secondary-text-focus: var(--british-racing-green);
 }
 
@@ -71,5 +74,6 @@
   --color-action-primary-text-focus: var(--white);
   --color-action-secondary-background: var(--white);
   --color-action-secondary-text: var(--zaffre);
+  --color-action-secondary-border: var(--zaffre);
   --color-action-secondary-text-focus: var(--pumpkin);
 }
