@@ -1,8 +1,17 @@
+#import '@blocks/InternalLink/InternalLinkBlock.fragment.graphql'
+
 query DefaultLayout($locale: SiteLocale!) {
   site: _site(locale: $locale) {
     faviconMetaTags(variants: [icon, appleTouchIcon, msApplication]) {
       tag
       attributes
+    }
+  }
+  app(locale: $locale) {
+    primaryAction {
+      ... on InternalLinkBlockRecord {
+        ...InternalLinkBlock
+      }
     }
   }
 }

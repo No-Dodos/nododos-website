@@ -1,3 +1,6 @@
+[class^="action--"]+[class^="action--"] {
+  margin-inline-start: 16px;
+}
 a,
 .action--default {
   display: inline;
@@ -15,7 +18,7 @@ a,
 .action--primary,
 .action--secondary {
   display: inline-block;
-  margin-inline: 8px;
+  margin-block: 8px;
   padding: 16px;
   border-radius: 50px;
   font-weight: bold;

@@ -10,6 +10,12 @@
     --british-racing-green: #044928;
 }
 
+/* attr selector for class name that starts with 'theme--' */
+[class^="theme--"] {
+  --color-action-default-text-focus: var(--color-highlight);
+  color: var(--color-text, --dawn-pink);
+  background-color: var(--color-background, --midnight-blue);
+}
 .theme--dark {
   --color-text: var(--dawn-pink);
   --color-background: var(--midnight-blue);

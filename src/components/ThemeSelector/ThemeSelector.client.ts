@@ -1,4 +1,5 @@
 class ThemeSelector extends HTMLElement {
+  #defaultTheme = '';
   #selector: HTMLSelectElement;
   #target: HTMLElement;
   #theme?: string;
@@ -18,7 +19,8 @@ class ThemeSelector extends HTMLElement {
     );
     if (!themeClass) return;
     const theme = themeClass.replace('theme--', '');
-    this.setTheme(theme);
+    this.#defaultTheme = theme;
+    this.#theme = theme;
   }
 
   connectedCallback() {
@@ -30,7 +32,11 @@ class ThemeSelector extends HTMLElement {
 
   setTheme(theme: string) {
     this.#target.classList.remove(`theme--${this.#theme}`);
-    this.#target.classList.add(`theme--${theme}`);
+    if (theme === 'auto') {
+      this.#target.classList.add(`theme--${this.#defaultTheme}`);
+    } else {
+      this.#target.classList.add(`theme--${theme}`);
+    }
     this.#theme = theme;
     this.#selector.value = theme;
   }

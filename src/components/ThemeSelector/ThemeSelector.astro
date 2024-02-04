@@ -4,7 +4,7 @@ interface Props {
   [key: string]: any;
 }
 const { target, ...props } = Astro.props;
-const themes = ['dark', 'light', 'purple', 'green', 'orange'];
+const themes = ['auto', 'dark', 'light', 'purple', 'green', 'orange'];
 ---
 
 <theme-selector data-target={target} {...props}>

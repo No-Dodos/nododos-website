@@ -27,15 +27,23 @@ const { block } = Astro.props;
   .component--panel {
     margin-block-start: 50px;
     padding-block: 25px;
-    padding-inline: 100px;
+    padding-inline: 50px;
     border-radius: 25px;
   }
+  @media screen and (min-width: 540px) {
+    .component--panel {
+    padding-inline: 100px;
+    }
+  }
   .layout :global(h1, h2) {
-    margin-top: 100px;
+    margin-top: 50px;
     max-width: 500px;
   }
   .layout--default {
     max-width: 640px;
+  }
+  .component--panel .layout--default {
+    max-width: 400px;
   }
   .layout--centered {
     text-align: center;
