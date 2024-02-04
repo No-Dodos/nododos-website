@@ -43,7 +43,18 @@
 }
 
 .theme--purple {
+  --color-text: var(--dawn-pink);
   --color-background: var(--zaffre);
+  --color-highlight: var(--selective-yellow);
+    --color-action-default-text: var(--color-text);
+    --color-action-default-text-focus: var(--color-highlight);
+    --color-action-primary-background: var(--white);
+    --color-action-primary-text: var(--midnight-blue);
+    --color-action-primary-background-focus: var(--color-highlight);
+    --color-action-secondary-background: var(--zaffre);
+    --color-action-secondary-text: var(--white);
+    --color-action-secondary-border: var(--white);
+    --color-action-secondary-text-focus: var(--selective-yellow);
 }
 
 .theme--orange {

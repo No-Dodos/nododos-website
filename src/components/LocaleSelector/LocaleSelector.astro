@@ -30,10 +30,11 @@ const getPageHref = (locale: SiteLocale) => {
           <a hreflang={ locale }
             href={ getPageHref(locale as SiteLocale) }
             aria-current={ locale === activeLocale ? 'page' : 'false' }
-            aria-label={ getLocaleName(locale) }
+            lang={locale}
             title={ getLocaleName(locale) }
           >
             { locale }
+            <span class="a11y-sr-only">{ getLocaleName(locale) }</span>
           </a>
         </li>
       )) }

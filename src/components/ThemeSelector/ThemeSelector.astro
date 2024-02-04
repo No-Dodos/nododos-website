@@ -1,0 +1,29 @@
+---
+interface Props {
+  target: string;
+  [key: string]: any;
+}
+const { target, ...props } = Astro.props;
+const themes = ['dark', 'light', 'purple', 'green', 'orange'];
+---
+
+<theme-selector data-target={target} {...props}>
+  {/* todo: translation label and options if put in production */}
+  <label for='theme-selector'>Theme</label>
+  <select id='theme-selector'>
+    {themes.map((theme) => <option value={theme}>{theme}</option>)}
+  </select>
+</theme-selector>
+
+<script src='./ThemeSelector.client.ts'></script>
+
+<style>
+  theme-selector {
+    background-color: var(--color-background);
+    padding: 10px;
+    border-radius: 10px;
+  }
+  theme-selector:not(:defined) {
+    display: none;
+  }
+</style>

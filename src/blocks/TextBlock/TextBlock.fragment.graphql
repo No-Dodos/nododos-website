@@ -8,6 +8,7 @@
 
 fragment TextBlock on TextBlockRecord {
   layout
+  theme
   text {
     blocks {
       __typename

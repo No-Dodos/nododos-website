@@ -9,7 +9,10 @@ interface Props {
 const { block } = Astro.props;
 ---
 
-<div class="component">
+<div class:list={['component', { 
+  'component--panel': block.theme,
+  [`theme--${block.theme}`]: block.theme,
+} ]} >
   <div class:list={['layout', `layout--${block.layout}`]}>
     <Text data={ block.text as StructuredText } />
   </div>
@@ -19,8 +22,14 @@ const { block } = Astro.props;
   .component {
     container-type: inline-size;
     container-name: TextBlock;
+    background-color: var(--color-background);
   }
-
+  .component--panel {
+    margin-block-start: 50px;
+    padding-block: 25px;
+    padding-inline: 100px;
+    border-radius: 25px;
+  }
   .layout :global(h1, h2) {
     margin-top: 100px;
     max-width: 500px;
