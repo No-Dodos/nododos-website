@@ -17,7 +17,7 @@ fragment InternalLink on InternalLinkRecord {
       ...ParentPage
     }
     ... on PersonRecord {
-      name
+      title: name
       slug
     }
   }

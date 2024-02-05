@@ -17,7 +17,7 @@ export const getHref = (
     return `/${locale}/${getPagePath({ page: page as PageRecord, locale })}/`;
   }
   if (page.__typename === 'PersonRecord') {
-    return `/${locale}/meet/${(page as PersonRecord).slug}/`;
+    return `/${locale}/meet/${(page as unknown as PersonRecord).slug}/`;
   }
   return homeUrl;
 };

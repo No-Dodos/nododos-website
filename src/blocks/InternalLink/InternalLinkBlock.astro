@@ -8,9 +8,10 @@ interface Props {
 }
 const { block, ...props } = Astro.props;
 const locale = getLocale() as SiteLocale;
-const href = getHref({ locale, page: block.page });
 ---
 
-<a href={href} class:list={[`action--${block.style || 'default'}`]} {...props}
->{block.title}</a
->
+<a 
+  href={ getHref({ locale, page: block.page }) } 
+  class:list={ [`action--${block.style || 'default'}`] } 
+  { ...props }
+>{ block.title || block.page?.title }</a>

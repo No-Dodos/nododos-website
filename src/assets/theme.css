@@ -10,12 +10,6 @@
     --british-racing-green: #044928;
 }
 
-/* attr selector for class name that starts with 'theme--' */
-[class^="theme--"] {
-  --color-action-default-text-focus: var(--color-highlight);
-  color: var(--color-text, --dawn-pink);
-  background-color: var(--color-background, --midnight-blue);
-}
 .theme--dark {
   --color-text: var(--dawn-pink);
   --color-background: var(--midnight-blue);
@@ -30,6 +24,8 @@
     --color-action-secondary-text: var(--white);
     --color-action-secondary-border: var(--zaffre);
   --color-action-secondary-text-focus: var(--color-highlight);
+  color: var(--color-text, --dawn-pink);
+    background-color: var(--color-background, --midnight-blue);
 }
 
 .theme--light {
@@ -46,13 +42,15 @@
   --color-action-secondary-text: var(--zaffre);
   --color-action-secondary-border: var(--zaffre);
   --color-action-secondary-text-focus: var(--saffron);
+  color: var(--color-text, --dawn-pink);
+    background-color: var(--color-background, --midnight-blue);
 }
 
 .theme--purple {
   --color-text: var(--dawn-pink);
   --color-background: var(--zaffre);
   --color-highlight: var(--selective-yellow);
-    --color-action-default-text: var(--color-text);
+  --color-action-default-text: var(--color-text);
     --color-action-default-text-focus: var(--color-highlight);
     --color-action-primary-background: var(--white);
     --color-action-primary-text: var(--midnight-blue);
@@ -61,6 +59,8 @@
     --color-action-secondary-text: var(--white);
     --color-action-secondary-border: var(--white);
     --color-action-secondary-text-focus: var(--selective-yellow);
+  color: var(--color-text, --dawn-pink);
+    background-color: var(--color-background, --midnight-blue);
 }
 
 .theme--orange {
@@ -77,6 +77,8 @@
   --color-action-secondary-text: var(--zaffre);
   --color-action-secondary-border: var(--zaffre);
   --color-action-secondary-text-focus: var(--british-racing-green);
+  color: var(--color-text, --dawn-pink);
+    background-color: var(--color-background, --midnight-blue);
 }
 
 .theme--green {
@@ -93,4 +95,6 @@
   --color-action-secondary-text: var(--zaffre);
   --color-action-secondary-border: var(--zaffre);
   --color-action-secondary-text-focus: var(--pumpkin);
+  color: var(--color-text, --dawn-pink);
+    background-color: var(--color-background, --midnight-blue);
 }
