@@ -49,3 +49,7 @@ a,
   color: var(--color-action-secondary-text-focus);
   border-color: var(--color-action-secondary-border-focus, currentColor);
 }
+
+.action--icon-only {
+  line-height: 1;
+}

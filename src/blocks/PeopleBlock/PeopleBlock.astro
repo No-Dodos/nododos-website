@@ -3,75 +3,99 @@ import type { PeopleBlockFragment } from '@lib/types/datocms';
 import { getLocale, t } from '@lib/i18n';
 import Icon from '@components/Icon';
 
+type Contact = {
+  name: string;
+  email: string;
+  phone: string;
+  image: {
+    url: string;
+  };
+};
 interface Props {
   block: PeopleBlockFragment;
 }
 const { block } = Astro.props;
 const locale = getLocale();
 const imageSize = 200;
-const getImageUrl = (person) => `${ person.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces`;
-const markEmail = (email) => email.replace('@', '+contact@');
-const phoneText = (person) => t('call_person_on_phone', { name: person.name, phone: person.phone });
-const emailText = (person) => t('send_email_to_person', { name: person.name, email: markEmail(person.email) });
+const getImageUrl = (person: Contact) => `${ person.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces`;
+const markEmail = (email: string) => email.replace('@', '+contact@');
+const phoneText = (person: Contact) => t('call_person_on_phone', { name: person.name, phone: person.phone });
+const emailText = (person: Contact) => t('send_email_to_person', { name: person.name, email: markEmail(person.email) });
 ---
-
-<ul>
-  {
-    block.people.map((person) => (
-      <li class="theme--light">
-        <img 
-          alt="" 
-          src={getImageUrl(person)}
-          width={ imageSize }
-          height={ imageSize }
-          style={{ backgroundColor: person.color?.hex }}
-        />
-        <h3>{person.fullName}</h3>
-        <p>[ person.bio ]</p>
-        <div>
-          { person.phone && (
-            <a href={`tel:${person.phone}`} title={ phoneText(person) } class="action--secondary">
-              <span class="a11y-sr-only">{ phoneText(person) }</span>
-              <Icon name="phone" />
-            </a>
-          )}
-          { person.email && (
-            <a href={`mailto:${markEmail(person.email)}`} title={ emailText(person) } class="action--secondary">
-              <span class="a11y-sr-only">{ emailText(person) }</span>
-              <Icon name="email" />
-            </a>
-          )}
-          { person.meetUrl && (
-            <a href={`/${locale}/meet/${person.slug}/`} class="action--primary">
-              <span class="a11y-sr-only">{ t('schedule_meeting_with_person', { name: person.fullName }) }</span>
-              <Icon name="calendar-check" />
-            </a>
-          )}
-        </div>
-      </li>
-    ))
-  }
-</ul>
+<div class="component">
+  <ul>
+    {
+      block.people.map((person) => (
+        <li class="theme--light">
+          <img 
+            alt="" 
+            src={getImageUrl(person as Contact)}
+            width={ imageSize }
+            height={ imageSize }
+            style={{ backgroundColor: person.color?.hex }}
+          />
+          <h3>{person.fullName}</h3>
+          <p>{ person.bio }</p>
+          <div>
+            { person.phone && (
+              <a href={`tel:${person.phone}`} title={ phoneText(person as Contact) } class="action--secondary action--icon-only">
+                <span class="a11y-sr-only">{ phoneText(person as Contact) }</span>
+                <Icon name="phone" />
+              </a>
+            )}
+            { person.email && (
+              <a href={`mailto:${markEmail(person.email)}`} title={ emailText(person as Contact) } class="action--secondary action--icon-only">
+                <span class="a11y-sr-only">{ emailText(person as Contact) }</span>
+                <Icon name="email" />
+              </a>
+            )}
+            { person.meetUrl && (
+              <a href={`/${locale}/meet/${person.slug}/`} class="action--primary action--icon-only">
+                <span class="a11y-sr-only">{ t('schedule_meeting_with_person', { name: person.fullName }) }</span>
+                <Icon name="calendar-check" />
+              </a>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>
 
 <style>
+  .component {
+    container-type: inline-size;
+    container-name: PeopleBlock;
+  }
   ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: auto;
-    grid-gap: 25px;
     list-style: none;
     padding: 0;
     margin: 0;
   }
   li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-block: 25px;
     padding: 25px;
     border-radius: 25px;
     background-color: var(--color-background);
     color: var(--color-text);
-    text-align: center;
+  }
+  @container PeopleBlock (min-width: 540px) {
+    ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: auto;
+      grid-gap: 25px;
+    }
   }
   img {
     border-radius: 50%;
     background-color: var(--zaffre);
+  }
+  div {
+    margin-block-start: auto;
   }
 </style>

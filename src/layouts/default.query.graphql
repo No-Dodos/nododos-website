@@ -13,5 +13,12 @@ query DefaultLayout($locale: SiteLocale!) {
         ...InternalLinkBlock
       }
     }
+    primaryContact {
+      ... on PersonRecord {
+        fullName
+        email
+        phone
+      }
+    }
   }
 }

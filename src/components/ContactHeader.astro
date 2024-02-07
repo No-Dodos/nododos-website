@@ -1,0 +1,57 @@
+---
+import { t } from '@lib/i18n';
+
+type Contact = {
+  fullName: string;
+  email: string;
+  phone: string;
+};
+interface Props {
+  contact: Contact;
+}
+
+const { contact, ...props } = Astro.props;
+
+const markEmail = (email: string) => email.replace('@', '+contact@');
+const phoneText = (contact: Contact) =>
+  t('call_person_on_phone', { name: contact.fullName, phone: contact.phone });
+const emailText = (contact: Contact) =>
+  t('send_email_to_person', {
+    name: contact.fullName,
+    email: markEmail(contact.email),
+  });
+---
+
+<div {...props}>
+  <div class='content'>
+    <div class='message'>
+      {/* Geen cookies, wel privacy -> link naar /nl/privacy/ */}
+    </div>
+    <div class='actions'>
+      <a
+        href={`tel:${contact.phone.replace(/\s/g, '')}`}
+        title={phoneText(contact)}
+      >
+        <span>{contact.phone}</span>
+      </a>
+      <a href={`mailto:${markEmail(contact.email)}`} title={emailText(contact)}>
+        <span>{contact.email}</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .actions a {
+    display: inline-block;
+    padding-block: 15px;
+    margin-inline-start: 10px;
+  }
+  .actions a:not(:last-child) {
+    margin-inline-end: 10px;
+  }
+</style>

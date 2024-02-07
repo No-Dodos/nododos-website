@@ -1,6 +1,6 @@
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
-#import '@blocks/InternalLink/InternalLink.fragment.graphql'
 #import '@blocks/InternalLink/InternalLinkBlock.fragment.graphql'
+#import '@blocks/InternalLink/ParentPage.fragment.graphql'
 #import '@blocks/QuoteBlock/QuoteBlock.fragment.graphql'
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
@@ -26,8 +26,26 @@ fragment TextImageBlock on TextImageBlockRecord {
       }
     }
     links {
-      id
-      ...InternalLink
+      __typename
+      ... on HomePageRecord {
+        id
+        title
+      }
+      ... on PageRecord {
+        id
+        title
+        slug
+        _allSlugLocales {
+          locale
+          value
+        }
+        ...ParentPage
+      }
+      ... on PersonRecord {
+        id
+        title: name
+        slug
+      }
     }
     value
   }

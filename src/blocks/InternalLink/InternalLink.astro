@@ -1,18 +1,23 @@
 ---
-import type { InternalLinkFragment, SiteLocale } from '@lib/types/datocms';
+import type { SiteLocale } from '@lib/types/datocms';
 import { getLocale } from '@lib/i18n';
 import { getHref } from './index';
 
+type AnyPage = {
+  __typename: string;
+  id: string;
+  title?: string;
+  [key: string]: any;
+}
 interface Props {
-  link: InternalLinkFragment;
+  page: AnyPage;
   openInNewTab?: boolean;
 }
 
-const { link, openInNewTab, ...props } = Astro.props;
-const { title, page } = link;
+const { page, openInNewTab, ...props } = Astro.props;
 const locale = getLocale() as SiteLocale;
 const href = getHref({ locale, page });
 const target = openInNewTab ? '_blank' : null;
 ---
 
-<a href={href} {target} class:list={[`action--${link.style || 'default'}`]} { ...props}><slot>{title}</slot></a>
+<a href={href} {target} { ...props}><slot>{page.title}</slot></a>

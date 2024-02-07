@@ -8,6 +8,7 @@ fragment PeopleBlock on PeopleBlockRecord {
     phone
     email
     meetUrl
+    bio
     color {
       hex
     }
