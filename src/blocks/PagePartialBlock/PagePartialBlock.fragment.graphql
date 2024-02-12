@@ -1,6 +1,10 @@
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
+#import '@blocks/OrganisationsBlock/OrganisationsBlock.fragment.graphql'
+#import '@blocks/PeopleBlock/PeopleBlock.fragment.graphql'
+#import '@blocks/QuoteBlock/QuoteBlock.fragment.graphql'
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
+#import '@blocks/VideoBlock/VideoBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
 
 fragment PagePartialBlock on PagePartialBlockRecord {
@@ -12,11 +16,23 @@ fragment PagePartialBlock on PagePartialBlockRecord {
       ... on ImageBlockRecord {
         ...ImageBlock
       }
+      ... on OrganisationsBlockRecord {
+        ...OrganisationsBlock
+      }
+      ... on PeopleBlockRecord {
+        ...PeopleBlock
+      }
+      ... on QuoteBlockRecord {
+        ...QuoteBlock
+      }
       ... on TableBlockRecord {
         ...TableBlock
       }
       ... on TextBlockRecord {
         ...TextBlock
+      }
+      ... on VideoBlockRecord {
+        ...VideoBlock
       }
       ... on VideoEmbedBlockRecord {
         ...VideoEmbedBlock

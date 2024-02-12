@@ -1,5 +1,7 @@
 ---
-import { t } from '@lib/i18n';
+import type { PageRecord } from '@lib/types/datocms';
+import { getLocale, t } from '@lib/i18n';
+import { getHref } from '@blocks/InternalLink/index';
 
 type Contact = {
   fullName: string;
@@ -8,9 +10,11 @@ type Contact = {
 };
 interface Props {
   contact: Contact;
+  privacyPage: PageRecord;
 }
 
-const { contact, ...props } = Astro.props;
+const { contact, privacyPage, ...props } = Astro.props;
+const locale = getLocale();
 
 const markEmail = (email: string) => email.replace('@', '+contact@');
 const phoneText = (contact: Contact) =>
@@ -25,7 +29,9 @@ const emailText = (contact: Contact) =>
 <div {...props}>
   <div class='content'>
     <div class='message'>
-      {/* Geen cookies, wel privacy -> link naar /nl/privacy/ */}
+      <a href={ getHref({ locale, page: privacyPage }) }>
+        { locale === 'nl' ? 'Geen cookies, wel privacy' : 'Cookies: no, privacy: yes' }
+      </a>
     </div>
     <div class='actions'>
       <a
@@ -46,12 +52,22 @@ const emailText = (contact: Contact) =>
     display: flex;
     justify-content: space-between;
   }
-  .actions a {
+  a {
     display: inline-block;
     padding-block: 15px;
+  }
+  .actions a {
     margin-inline-start: 10px;
   }
   .actions a:not(:last-child) {
     margin-inline-end: 10px;
+  }
+  .message {
+    display: none;
+  }
+  @media screen and (min-width: 520px) {
+    .message {
+      display: block;
+    }
   }
 </style>

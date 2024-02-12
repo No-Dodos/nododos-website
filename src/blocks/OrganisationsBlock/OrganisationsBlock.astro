@@ -25,6 +25,7 @@ const items = block.organisations
       <li>
         <DynamicTag as={item.url ? 'a' : 'span'} href={item.url}>
           <img
+            title={item.name}
             alt={item.name}
             src={item.image}
             width={imageSize}
@@ -42,7 +43,7 @@ const items = block.organisations
     flex-wrap: wrap;
     justify-content: center;
     list-style: none;
-    /* max-width: 600px; */
+    max-width: 720px;
     margin-inline: auto;
     padding: 0;
   }

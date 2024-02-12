@@ -7,8 +7,10 @@ import { siteName } from '@lib/seo';
 import type { PageUrl } from '@lib/seo';
 import query from './default.query.graphql';
 import InternalLinkBlock from '@blocks/InternalLink/InternalLinkBlock.astro';
+import AppFooter from '@components/AppFooter.astro';
 import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs.astro';
 import type { Breadcrumb } from '@components/Breadcrumbs';
+import ContactHeader from '@components/ContactHeader.astro';
 import IconSprite from '@components/Icon/IconSprite.astro';
 import LocaleSelector from '@components/LocaleSelector/LocaleSelector.astro';
 import NoDodosLogo from '@components/NoDodosLogo.astro';
@@ -21,7 +23,6 @@ import '@fontsource-variable/urbanist';
 import '@assets/a11y.css';
 import '@assets/theme.css';
 import '@assets/action.css';
-import ContactHeader from '@components/ContactHeader.astro';
 
 interface Props {
   breadcrumbs?: Breadcrumb[];
@@ -50,9 +51,15 @@ const theme = ['dark', 'light', 'green', 'orange'].includes(Astro.props.theme ||
   <body class:list={[`theme--${theme}`]} >
     <PreviewModeProvider>
       <SkipLink targetId={ mainContentId } />
-      <div class="theme--purple">
-        <ContactHeader contact={data.app.primaryContact} class:list={['layout']} />
-      </div>
+      <slot name="contact">
+        <div class="theme--purple">
+          <ContactHeader 
+            contact={data.app.primaryContact}
+            privacyPage={data.app.privacyPage}
+            class:list={['layout']}
+          />
+        </div>
+      </slot>
       <header class="layout" { ...datocmsNoIndex }>
         { /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */ }
         <a rel="home" href="/" class="logo" aria-label={ t('go_to_home_page', { siteName }) }>
@@ -76,12 +83,15 @@ const theme = ['dark', 'light', 'green', 'orange'].includes(Astro.props.theme ||
         </main>
       </slot>
       <slot name="footer">
-        <!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
-        <footer role="contentinfo" class="layout" { ...datocmsNoIndex }>     
-          <a rel="home" href="/" aria-label={ t('go_to_home_page', { siteName }) }>
-            <NoDodosLogo />
-          </a>
-        </footer>
+        <div class="footer theme--dark">
+          <div class="layout">
+            <AppFooter 
+              contact={ data.app.primaryContact }
+              copyrightPage={ data.app.copyrightPage }
+              privacyPage={ data.app.privacyPage }
+            />
+          </div>
+        </div>
       </slot>
     </PreviewModeProvider>
     <IconSprite />
@@ -130,7 +140,7 @@ const theme = ['dark', 'light', 'green', 'orange'].includes(Astro.props.theme ||
   html, body {
     height: 100%;
   }
-  footer {
+  .footer {
     position: sticky;
     top: 100vh;
   }
@@ -150,9 +160,9 @@ const theme = ['dark', 'light', 'green', 'orange'].includes(Astro.props.theme ||
     line-height: 1.6;
   }
 
-  footer {
+  .footer {
     margin-block: 100px;
-    padding-block: 15px;
+    padding-block: 30px;
   }
 
   .layout {
@@ -162,7 +172,7 @@ const theme = ['dark', 'light', 'green', 'orange'].includes(Astro.props.theme ||
   }
   @media screen and (min-width: 480px) {
     .layout {
-    padding-inline: 15px;
+      padding-inline: 15px;
     }
   }
 </style>

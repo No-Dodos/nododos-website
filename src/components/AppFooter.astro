@@ -1,0 +1,170 @@
+---
+import { getLocale, t } from '@lib/i18n';
+import { datocmsNoIndex } from '@lib/search';
+import { siteName } from '@lib/seo';
+import { getHref } from '@blocks/InternalLink/index';
+import Icon from '@components/Icon';
+import NoDodosLogo from '@components/NoDodosLogo.astro';
+
+type Contact = {
+  fullName: string;
+  email: string;
+  phone: string;
+};
+
+const { contact, copyrightPage, privacyPage, ...props } = Astro.props;
+const locale = getLocale();
+const isNl = locale === 'nl';
+const socialPlatforms = [
+  { title: 'LinkedIn', url: 'https://www.linkedin.com/company/no-dodos/' },
+  { title: 'Instagram', url: '' },
+];
+const legalName = isNl
+  ? 'No Dodos Coöperatie U.A.'
+  : 'No Dodos Cooperation U.A.';
+const details = [
+  { title: 'KvK', value: '92330606' },
+  { title: isNl ? 'BTW' : 'VAT', value: 'NL866007581B01' },
+  { title: 'IBAN', value: '...' },
+];
+
+const markEmail = (email: string) => email.replace('@', '+contact@');
+const phoneText = (contact: Contact) =>
+  t('call_person_on_phone', { name: contact.fullName, phone: contact.phone });
+const emailText = (contact: Contact) =>
+  t('send_email_to_person', {
+    name: contact.fullName,
+    email: markEmail(contact.email),
+  });
+---
+
+<!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
+<footer role='contentinfo' {...datocmsNoIndex} {...props}>
+  <div class='contact'>
+    <a rel='home' href='/' aria-label={t('go_to_home_page', { siteName })}>
+      <NoDodosLogo />
+    </a>
+    <div>
+      <strong>Visit us</strong>
+      <a
+        href='https://www.google.nl/maps/place/Koornmarkt+22,+2611+EG+Delft/@52.0093477,4.3573054,17z/'
+        target='_blank'
+        rel='noreferrer noopener'
+      >
+        Koornmarkt 22<br />
+        2611 EG Delft
+      </a>
+    </div>
+    <div>
+      <strong>Contact us</strong>
+      <a
+        href={`tel:${contact.phone.replace(/\s/g, '')}`}
+        title={phoneText(contact)}
+      >
+        <span>{contact.phone}</span>
+      </a>
+      <br />
+      <a href={`mailto:${markEmail(contact.email)}`} title={emailText(contact)}>
+        <span>{contact.email}</span>
+      </a>
+    </div>
+    <div class='socials'>
+      {
+        socialPlatforms.map((platform) => (
+          <a
+            href={platform.url}
+            target='_blank'
+            rel='noreferrer noopener'
+            class='action--primary action--icon-only'
+          >
+            <span class='a11y-sr-only'>
+              {t('follow_us_on_platform', { platform: platform.title })}
+            </span>
+            <Icon name={platform.title.toLowerCase()} />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <div class='legal'>
+    <dl>
+      {
+        details.map((item) => (
+          <>
+            <dt>{item.title}</dt>
+            <dd>{item.value}</dd>
+          </>
+        ))
+      }
+    </dl>
+    <p>
+      {legalName}
+      <span aria-hidden='true'>-</span>
+      <a href={getHref({ page: copyrightPage, locale })}>Copyright</a>
+      <span aria-hidden='true'>-</span>
+      <a href={getHref({ page: privacyPage, locale })}
+      >{isNl ? 'Privacyverlaring' : 'Privacy statement'}</a
+      >
+    </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    line-height: 1.5;
+  }
+  .contact > * {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .contact strong {
+    display: block;
+  }
+  .socials a {
+    padding: 8px;
+    color: var(--color-background);
+    background-color: var(--color-text);
+  }
+  .socials a:focus,
+  .socials a:hover {
+    background-color: var(--color-highlight);
+  }
+  .socials a + a {
+    margin-inline-start: 10px;
+  }
+  .legal {
+    font-size: 0.8rem;
+    border-top: 1px solid var(--color-text);
+    padding-top: 25px;
+    margin-block: 25px;
+  }
+  .legal dl {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+  }
+  .legal span {
+    display: inline-block;
+    margin-inline: 10px;
+  }
+  @media screen and (min-width: 520px) {
+    .contact {
+      display: flex;
+      justify-content: space-between;
+    }
+    .legal {
+      text-align: center;
+    }
+    .legal dl {
+      display: flex;
+      justify-content: center;
+    }
+    .legal dd {
+      margin-inline-start: 10px;
+    }
+    .legal dd + dt::before {
+      content: '|';
+      display: inline-block;
+      margin-inline: 15px;
+    }
+  }
+</style>

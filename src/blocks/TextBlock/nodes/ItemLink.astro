@@ -23,6 +23,4 @@ const { node, link: page } = Astro.props;
 const openInNewTab = Boolean(node.meta?.find(entry => entry.id === 'target' && entry.value === '_blank'));
 ---
 
-<InternalLink page={ page } {openInNewTab}>
-  <slot />
-</InternalLink>
+<InternalLink page={ page } {openInNewTab}><slot /></InternalLink>

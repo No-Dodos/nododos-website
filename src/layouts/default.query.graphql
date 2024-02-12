@@ -1,4 +1,5 @@
 #import '@blocks/InternalLink/InternalLinkBlock.fragment.graphql'
+#import '@blocks/InternalLink/ParentPage.fragment.graphql'
 
 query DefaultLayout($locale: SiteLocale!) {
   site: _site(locale: $locale) {
@@ -19,6 +20,22 @@ query DefaultLayout($locale: SiteLocale!) {
         email
         phone
       }
+    }
+    copyrightPage {
+      __typename
+      _allSlugLocales {
+        locale
+        value
+      }
+      ...ParentPage
+    }
+    privacyPage {
+      __typename
+      _allSlugLocales {
+        locale
+        value
+      }
+      ...ParentPage
     }
   }
 }

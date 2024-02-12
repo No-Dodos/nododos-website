@@ -25,6 +25,9 @@ export default defineConfig({
       type: 'pages',
     },
   }),
+  devToolbar: {
+    enabled: false,
+  },
   image: {
     // cloudflare is not supported by the Astro image service
     // @see https://docs.astro.build/en/guides/images/#configure-no-op-passthrough-service
