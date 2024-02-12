@@ -1,7 +1,7 @@
 ---
 import type { OrganisationsBlockFragment } from '@lib/types/datocms';
 import { getLocale } from '@lib/i18n';
-import { getPagePath } from '@blocks/InternalLink/index';
+import { getHref } from '@blocks/InternalLink/index';
 import DynamicTag from '@components/DynamicTag.astro';
 
 interface Props {
@@ -13,7 +13,7 @@ const imageSize = 100;
 const items = block.organisations
   .filter((item) => item.image)
   .map((item) => ({
-    url: item.page ? `${getPagePath({ page: item.page, locale })}/` : undefined,
+    url: item.page ? getHref({ page: item.page, locale }) : undefined,
     image: `${item.image.url}?auto=format&w=${imageSize}&ar=1:1&dpr=3&fit=clip`,
     name: item.name,
   }));

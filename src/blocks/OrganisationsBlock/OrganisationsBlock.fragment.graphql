@@ -12,6 +12,7 @@ fragment OrganisationsBlock on OrganisationsBlockRecord {
       }
     }
     page {
+      __typename
       title
       slug
       _allSlugLocales {
