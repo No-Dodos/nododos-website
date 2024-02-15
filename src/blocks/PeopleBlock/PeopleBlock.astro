@@ -1,5 +1,6 @@
 ---
 import type { PeopleBlockFragment } from '@lib/types/datocms';
+import { markEmail, phoneText, emailText } from '@lib/format';
 import { getLocale, t } from '@lib/i18n';
 import Icon from '@components/Icon';
 
@@ -18,9 +19,6 @@ const { block } = Astro.props;
 const locale = getLocale();
 const imageSize = 200;
 const getImageUrl = (person: Contact) => `${ person.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces`;
-const markEmail = (email: string) => email.replace('@', '+contact@');
-const phoneText = (person: Contact) => t('call_person_on_phone', { name: person.name, phone: person.phone });
-const emailText = (person: Contact) => t('send_email_to_person', { name: person.name, email: markEmail(person.email) });
 ---
 <div class="component">
   <ul>

@@ -1,0 +1,119 @@
+---
+import type { StructuredText } from 'datocms-structured-text-utils';
+import type { TextCardsBlockFragment } from '@lib/types/datocms';
+import Text from '@blocks/TextBlock/Text.astro';
+import leafGreen from '@assets/images/leaf-green.svg';
+import leafMultiColor from '@assets/images/leaf-multicolor.svg';
+import leafPurple from '@assets/images/leaf-purple.svg';
+
+interface Props {
+  block: TextCardsBlockFragment;
+}
+const { block } = Astro.props;
+const { items, style } = block;
+const images = [leafGreen, leafMultiColor, leafPurple];
+const themes = ['orange', 'purple', 'green'];
+const getImageClass = (index: number) =>
+  `leaf--${['green', 'multicolor', 'purple'][index % 3]}`;
+const getImageSrc = (index: number) => images[index % images.length].src;
+const getThemeClass = (index: number) =>
+  `theme--${themes[index % themes.length]}`;
+---
+
+<div class='component'>
+  <ul class='list'>
+    {
+      items.map((item, index) => (
+        <li class:list={['card', getThemeClass(index)]}>
+          { style === 'leaves' && (
+            <img
+              alt=''
+              src={getImageSrc(index)}
+              class:list={['leaf', getImageClass(index)]}
+            />
+          )}
+          <div>
+            <h3>{item.title}</h3>
+            <Text data={item.text as StructuredText} />
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .component {
+    container-type: inline-size;
+    container-name: TextCardsBlock;
+    margin-block-start: 25px;
+  }
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-block: 25px;
+    padding: 25px;
+    border-radius: 25px;
+  }
+  .card :global(li) {
+    text-align: left;
+  }
+  .card :global(h3) {
+    margin-block-end: 0;
+  }
+  .leaf {
+    display: block;
+    width: calc(100% + 2 * 25px);
+    margin-top: -100px;
+    margin-bottom: -20px;
+  }
+  .leaf--multicolor {
+    transform: scale(0.8) translateY(20px);
+  }
+  @container TextCardsBlock (min-width: 480px) and (max-width: 799px) {
+    .card {
+      text-align: left;
+    }
+    .card:nth-child(odd) {
+      flex-direction: row;
+    }
+    .card:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .leaf {
+      width: 50%;
+      margin-top: -20px;
+    }
+    .leaf--green,
+    .leaf--purple {
+      margin-left: -50px;
+    }
+    .leaf--purple {
+      transform: scaleX(-1);
+    }
+    .leaf--multicolor {
+      transform: scale(1);
+    }
+  }
+  @container TextCardsBlock (min-width: 800px) {
+    .list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: auto;
+      grid-gap: 25px;
+    }
+    .leaf--green {
+      margin-left: -100px;
+    }
+    .leaf--purple {
+      margin-right: -100px;
+    }
+  }
+</style>

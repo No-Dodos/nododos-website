@@ -1,13 +1,10 @@
 ---
 import type { PageRecord } from '@lib/types/datocms';
-import { getLocale, t } from '@lib/i18n';
+import type { Contact } from '@lib/format';
+import { markEmail, phoneText, emailText } from '@lib/format';
+import { getLocale } from '@lib/i18n';
 import { getHref } from '@blocks/InternalLink/index';
 
-type Contact = {
-  fullName: string;
-  email: string;
-  phone: string;
-};
 interface Props {
   contact: Contact;
   privacyPage: PageRecord;
@@ -15,15 +12,6 @@ interface Props {
 
 const { contact, privacyPage, ...props } = Astro.props;
 const locale = getLocale();
-
-const markEmail = (email: string) => email.replace('@', '+contact@');
-const phoneText = (contact: Contact) =>
-  t('call_person_on_phone', { name: contact.fullName, phone: contact.phone });
-const emailText = (contact: Contact) =>
-  t('send_email_to_person', {
-    name: contact.fullName,
-    email: markEmail(contact.email),
-  });
 ---
 
 <div {...props}>

@@ -33,7 +33,7 @@ const { block } = Astro.props;
     padding-inline: 50px;
     border-radius: 25px;
   }
-  @media screen and (min-width: 540px) {
+  @media screen and (min-width: 720px) {
     .component--panel {
       padding-inline: 100px;
     }
@@ -69,14 +69,20 @@ const { block } = Astro.props;
   }
 
   .leaves { 
-    display:none;
+    display: none;
   }    
-  .style--with-leaves .leaves {
-    display: block;
-    position: absolute;
-    height: 120%;
-    top: -10%;
-    right: -15%;
-    opacity: 0.5;
+  @container TextBlock (min-width: 480px) {
+    .style--with-leaves .leaves {
+      display: block;
+      position: absolute;
+      height: 120%;
+      top: -10%;
+      right: -250px;
+    }
+  }
+  @container TextBlock (min-width: 600px) {
+    .style--with-leaves .leaves {
+      right: -100px;
+    }
   }
 </style>

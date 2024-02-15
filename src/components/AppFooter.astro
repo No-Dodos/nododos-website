@@ -1,4 +1,6 @@
 ---
+import type { IconName } from '@assets/icon-sprite';
+import { markEmail, phoneText, emailText } from '@lib/format';
 import { getLocale, t } from '@lib/i18n';
 import { datocmsNoIndex } from '@lib/search';
 import { siteName } from '@lib/seo';
@@ -6,18 +8,13 @@ import { getHref } from '@blocks/InternalLink/index';
 import Icon from '@components/Icon';
 import NoDodosLogo from '@components/NoDodosLogo.astro';
 
-type Contact = {
-  fullName: string;
-  email: string;
-  phone: string;
-};
 
 const { contact, copyrightPage, privacyPage, ...props } = Astro.props;
 const locale = getLocale();
 const isNl = locale === 'nl';
-const socialPlatforms = [
-  { title: 'LinkedIn', url: 'https://www.linkedin.com/company/no-dodos/' },
-  { title: 'Instagram', url: '' },
+const socialPlatforms: { key: IconName, title: string, url: string }[] = [
+  { key: 'linkedin', title: 'LinkedIn', url: 'https://www.linkedin.com/company/no-dodos/' },
+  { key: 'instagram', title: 'Instagram', url: 'https://www.instagram.com/no_dodos/' },
 ];
 const legalName = isNl
   ? 'No Dodos Coöperatie U.A.'
@@ -25,17 +22,8 @@ const legalName = isNl
 const details = [
   { title: 'KvK', value: '92330606' },
   { title: isNl ? 'BTW' : 'VAT', value: 'NL866007581B01' },
-  { title: 'IBAN', value: '...' },
+  { title: 'IBAN', value: 'NL10 ASNB 8821 1780 72'.replaceAll(' ','') },
 ];
-
-const markEmail = (email: string) => email.replace('@', '+contact@');
-const phoneText = (contact: Contact) =>
-  t('call_person_on_phone', { name: contact.fullName, phone: contact.phone });
-const emailText = (contact: Contact) =>
-  t('send_email_to_person', {
-    name: contact.fullName,
-    email: markEmail(contact.email),
-  });
 ---
 
 <!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
@@ -80,7 +68,7 @@ const emailText = (contact: Contact) =>
             <span class='a11y-sr-only'>
               {t('follow_us_on_platform', { platform: platform.title })}
             </span>
-            <Icon name={platform.title.toLowerCase()} />
+            <Icon name={platform.key} />
           </a>
         ))
       }

@@ -8,6 +8,7 @@ import {
   QuoteBlockFragment,
   TableBlockFragment,
   TextBlockFragment,
+  TextCardsBlockFragment,
   TextImageBlockFragment,
   VideoBlockFragment,
   VideoEmbedBlockFragment,
@@ -23,6 +24,7 @@ export type AnyBlock =
   | QuoteBlockFragment
   | TableBlockFragment
   | TextBlockFragment
+  | TextCardsBlockFragment
   | TextImageBlockFragment
   | VideoBlockFragment
   | VideoEmbedBlockFragment;

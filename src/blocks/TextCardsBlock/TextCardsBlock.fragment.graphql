@@ -1,0 +1,25 @@
+#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+
+fragment TextCardsBlock on TextCardsBlockRecord {
+  id
+  items {
+    title
+    text {
+      links {
+        __typename
+        ... on PageRecord {
+          id
+          title
+          slug
+          _allSlugLocales {
+            locale
+            value
+          }
+          ...ParentPage
+        }
+      }
+      value
+    }
+  }
+  style
+}
