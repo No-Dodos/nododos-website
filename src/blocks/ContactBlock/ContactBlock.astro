@@ -1,0 +1,100 @@
+---
+import type { StructuredText } from 'datocms-structured-text-utils';
+import type { ContactBlockFragment } from '@lib/types/datocms';
+import type { Contact } from '@lib/format';
+import { markEmail, phoneText, emailText } from '@lib/format';
+import { getLocale, t } from '@lib/i18n';
+import Text from '@blocks/TextBlock/Text.astro';
+import Icon from '@components/Icon';
+
+interface Props {
+  block: ContactBlockFragment;
+}
+const { block } = Astro.props;
+const { text, person } = block;
+const locale = getLocale();
+const imageSize = 200;
+const getImageUrl = (person: ContactBlockFragment['person']) =>
+  `${person.image?.url}?auto=format&w=${imageSize}&ar=1:1&dpr=2&fit=crop&crop=faces`;
+---
+
+<aside class='component'>
+  <div class='content theme--purple'>
+    <img
+      alt=''
+      src={getImageUrl(person)}
+      width={imageSize}
+      height={imageSize}
+    />
+    <div class='text'>
+      <Text data={text as StructuredText} />
+      <div>
+        {
+          person.meetUrl && (
+            <a href={`/${locale}/meet/${person.slug}/`} class='action--primary'>
+              {t('schedule_meeting_with_person', { name: person.name })}
+            </a>
+          )
+        }
+        {
+          person.phone && (
+            <a
+              href={`tel:${person.phone}`}
+              title={phoneText(person as Contact)}
+              class='action--secondary action--icon-only'
+            >
+              <span class='a11y-sr-only'>{phoneText(person as Contact)}</span>
+              <Icon name='phone' />
+            </a>
+          )
+        }
+        {
+          person.email && (
+            <a
+              href={`mailto:${markEmail(person.email)}`}
+              title={emailText(person as Contact)}
+              class='action--secondary action--icon-only'
+            >
+              <span class='a11y-sr-only'>{emailText(person as Contact)}</span>
+              <Icon name='email' />
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .component {
+    container-type: inline-size;
+    container-name: ContactBlock;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-block: 25px;
+    padding: 25px;
+    border-radius: 25px;
+  }
+  @container ContactBlock (min-width: 540px) {
+    .content {
+      flex-direction: row;
+    }
+  }
+
+  img {
+    border-radius: 50%;
+    background-color: var(--midnight-blue);
+  }
+
+  .text {
+    max-width: 520px;
+  }
+  .text :global(h2) {
+    margin-top: 0;
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import type { AnyBlock } from './Blocks';
+import ContactBlock from './ContactBlock/ContactBlock.astro';
 import EmbedBlock from './EmbedBlock/EmbedBlock.astro';
 import ImageBlock from './ImageBlock/ImageBlock.astro';
 import InternalLinkBlock from './InternalLink/InternalLinkBlock.astro';
@@ -15,6 +16,7 @@ import VideoBlock from './VideoBlock/VideoBlock.astro';
 import VideoEmbedBlock from './VideoEmbedBlock/VideoEmbedBlock.astro';
 
 const blocksByTypename = {
+  ContactBlockRecord: ContactBlock,
   EmbedBlockRecord: EmbedBlock,
   ImageBlockRecord: ImageBlock,
   InternalLinkBlockRecord: InternalLinkBlock,

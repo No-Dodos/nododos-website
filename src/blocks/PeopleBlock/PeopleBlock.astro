@@ -1,24 +1,16 @@
 ---
 import type { PeopleBlockFragment } from '@lib/types/datocms';
+import type { Contact } from '@lib/format';
 import { markEmail, phoneText, emailText } from '@lib/format';
 import { getLocale, t } from '@lib/i18n';
 import Icon from '@components/Icon';
-
-type Contact = {
-  name: string;
-  email: string;
-  phone: string;
-  image: {
-    url: string;
-  };
-};
 interface Props {
   block: PeopleBlockFragment;
 }
 const { block } = Astro.props;
 const locale = getLocale();
 const imageSize = 200;
-const getImageUrl = (person: Contact) => `${ person.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces`;
+const getImageUrl = (person: PeopleBlockFragment['people'][0]) => `${ person.image?.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces`;
 ---
 <div class="component">
   <ul>
@@ -27,7 +19,7 @@ const getImageUrl = (person: Contact) => `${ person.image.url }?auto=format&w=${
         <li class="theme--light">
           <img 
             alt="" 
-            src={getImageUrl(person as Contact)}
+            src={getImageUrl(person)}
             width={ imageSize }
             height={ imageSize }
             style={{ backgroundColor: person.color?.hex }}

@@ -1,3 +1,4 @@
+#import '@blocks/ContactBlock/ContactBlock.fragment.graphql'
 #import '@blocks/EmbedBlock/EmbedBlock.fragment.graphql'
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
 #import '@blocks/InternalLink/ParentPage.fragment.graphql'
@@ -29,6 +30,9 @@ query Page($locale: SiteLocale!, $slug: String!) {
     ...ParentPage
     bodyBlocks {
       __typename
+      ... on ContactBlockRecord {
+        ...ContactBlock
+      }
       ... on EmbedBlockRecord {
         ...EmbedBlock
       }

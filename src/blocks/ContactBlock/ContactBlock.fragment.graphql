@@ -1,0 +1,24 @@
+fragment ContactBlock on ContactBlockRecord {
+  id
+  text {
+    value
+  }
+  person {
+    name
+    fullName
+    slug
+    phone
+    email
+    meetUrl
+    color {
+      hex
+    }
+    image {
+      url
+      responsiveImage {
+        aspectRatio
+        base64
+      }
+    }
+  }
+}
