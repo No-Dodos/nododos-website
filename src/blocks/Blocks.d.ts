@@ -2,10 +2,12 @@ import {
   ContactBlockFragment,
   EmbedBlockFragment,
   ImageBlockFragment,
+  ImageCardsBlockFragment,
   InternalLinkBlockFragment,
   OrganisationsBlockFragment,
   PagePartialBlockFragment,
   PeopleBlockFragment,
+  PivotBlockFragment,
   QuoteBlockFragment,
   TableBlockFragment,
   TextBlockFragment,
@@ -19,10 +21,12 @@ export type AnyBlock =
   | ContactBlockFragment
   | EmbedBlockFragment
   | ImageBlockFragment
+  | ImageCardsBlockFragment
   | InternalLinkBlockFragment
   | OrganisationsBlockFragment
   | PagePartialBlockFragment
   | PeopleBlockFragment
+  | PivotBlockFragment
   | QuoteBlockFragment
   | TableBlockFragment
   | TextBlockFragment

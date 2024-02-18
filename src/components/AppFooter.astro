@@ -29,7 +29,7 @@ const details = [
 <!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
 <footer role='contentinfo' {...datocmsNoIndex} {...props}>
   <div class='contact'>
-    <a rel='home' href='/' aria-label={t('go_to_home_page', { siteName })}>
+    <a rel='home'  href={`/${ locale }/`} aria-label={t('go_to_home_page', { siteName })}>
       <NoDodosLogo />
     </a>
     <div>

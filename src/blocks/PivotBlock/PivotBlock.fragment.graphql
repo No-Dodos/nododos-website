@@ -1,0 +1,28 @@
+#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+
+fragment PivotBlock on PivotBlockRecord {
+  id
+  text {
+    value
+  }
+  image {
+    url
+    responsiveImage {
+      aspectRatio
+      base64
+    }
+  }
+  pageLink {
+    title
+    page {
+      __typename
+      title
+      slug
+      _allSlugLocales {
+        locale
+        value
+      }
+      ...ParentPage
+    }
+  }
+}

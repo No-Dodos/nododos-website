@@ -25,10 +25,11 @@ const getImageUrl = (person: ContactBlockFragment['person']) =>
       src={getImageUrl(person)}
       width={imageSize}
       height={imageSize}
+      loading="lazy"
     />
     <div class='text'>
       <Text data={text as StructuredText} />
-      <div>
+      <div class="actions">
         {
           person.meetUrl && (
             <a href={`/${locale}/meet/${person.slug}/`} class='action--primary'>
@@ -36,30 +37,32 @@ const getImageUrl = (person: ContactBlockFragment['person']) =>
             </a>
           )
         }
-        {
-          person.phone && (
-            <a
-              href={`tel:${person.phone}`}
-              title={phoneText(person as Contact)}
-              class='action--secondary action--icon-only'
-            >
-              <span class='a11y-sr-only'>{phoneText(person as Contact)}</span>
-              <Icon name='phone' />
-            </a>
-          )
-        }
-        {
-          person.email && (
-            <a
-              href={`mailto:${markEmail(person.email)}`}
-              title={emailText(person as Contact)}
-              class='action--secondary action--icon-only'
-            >
-              <span class='a11y-sr-only'>{emailText(person as Contact)}</span>
-              <Icon name='email' />
-            </a>
-          )
-        }
+        <div>
+          {
+            person.phone && (
+              <a
+                href={`tel:${person.phone}`}
+                title={phoneText(person as Contact)}
+                class='action--secondary action--icon-only'
+              >
+                <span class='a11y-sr-only'>{phoneText(person as Contact)}</span>
+                <Icon name='phone' />
+              </a>
+            )
+          }
+          {
+            person.email && (
+              <a
+                href={`mailto:${markEmail(person.email)}`}
+                title={emailText(person as Contact)}
+                class='action--secondary action--icon-only'
+              >
+                <span class='a11y-sr-only'>{emailText(person as Contact)}</span>
+                <Icon name='email' />
+              </a>
+            )
+          }
+        </div>
       </div>
     </div>
   </div>
@@ -96,5 +99,12 @@ const getImageUrl = (person: ContactBlockFragment['person']) =>
   }
   .text :global(h2) {
     margin-top: 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 16px;
+    line-height: 1;
   }
 </style>

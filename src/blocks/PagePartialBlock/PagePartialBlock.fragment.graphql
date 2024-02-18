@@ -1,10 +1,13 @@
 #import '@blocks/ContactBlock/ContactBlock.fragment.graphql'
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
+#import '@blocks/ImageCardsBlock/ImageCardsBlock.fragment.graphql'
 #import '@blocks/OrganisationsBlock/OrganisationsBlock.fragment.graphql'
 #import '@blocks/PeopleBlock/PeopleBlock.fragment.graphql'
+#import '@blocks/PivotBlock/PivotBlock.fragment.graphql'
 #import '@blocks/QuoteBlock/QuoteBlock.fragment.graphql'
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
+#import '@blocks/TextCardsBlock/TextCardsBlock.fragment.graphql'
 #import '@blocks/VideoBlock/VideoBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
 
@@ -20,11 +23,17 @@ fragment PagePartialBlock on PagePartialBlockRecord {
       ... on ImageBlockRecord {
         ...ImageBlock
       }
+      ... on ImageCardsBlockRecord {
+        ...ImageCardsBlock
+      }
       ... on OrganisationsBlockRecord {
         ...OrganisationsBlock
       }
       ... on PeopleBlockRecord {
         ...PeopleBlock
+      }
+      ... on PivotBlockRecord {
+        ...PivotBlock
       }
       ... on QuoteBlockRecord {
         ...QuoteBlock
@@ -34,6 +43,9 @@ fragment PagePartialBlock on PagePartialBlockRecord {
       }
       ... on TextBlockRecord {
         ...TextBlock
+      }
+      ... on TextCardsBlockRecord {
+        ...TextCardsBlock
       }
       ... on VideoBlockRecord {
         ...VideoBlock

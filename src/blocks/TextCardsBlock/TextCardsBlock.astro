@@ -1,5 +1,4 @@
 ---
-import type { StructuredText } from 'datocms-structured-text-utils';
 import type { TextCardsBlockFragment } from '@lib/types/datocms';
 import Text from '@blocks/TextBlock/Text.astro';
 import leafGreen from '@assets/images/leaf-green.svg';
@@ -21,10 +20,10 @@ const getThemeClass = (index: number) =>
 ---
 
 <div class='component'>
-  <ul class='list'>
+  <div class='list'>
     {
       items.map((item, index) => (
-        <li class:list={['card', getThemeClass(index)]}>
+        <div class:list={['card', getThemeClass(index)]}>
           { style === 'leaves' && (
             <img
               alt=''
@@ -34,12 +33,12 @@ const getThemeClass = (index: number) =>
           )}
           <div>
             <h3>{item.title}</h3>
-            <Text data={item.text as StructuredText} />
+            <Text data={item.text} />
           </div>
-        </li>
+        </div>
       ))
     }
-  </ul>
+  </div>
 </div>
 
 <style>

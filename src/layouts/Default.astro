@@ -62,7 +62,7 @@ const theme = ['dark', 'light', 'green', 'orange'].includes(Astro.props.theme ||
       </slot>
       <header class="layout" { ...datocmsNoIndex }>
         { /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */ }
-        <a rel="home" href="/" class="logo" aria-label={ t('go_to_home_page', { siteName }) }>
+        <a rel="home" href={`/${ locale }/`} class="logo" aria-label={ t('go_to_home_page', { siteName }) }>
           <NoDodosLogo />
         </a>
         <div>

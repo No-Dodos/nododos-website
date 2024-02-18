@@ -1,9 +1,11 @@
 #import '@blocks/ContactBlock/ContactBlock.fragment.graphql'
 #import '@blocks/EmbedBlock/EmbedBlock.fragment.graphql'
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
+#import '@blocks/ImageCardsBlock/ImageCardsBlock.fragment.graphql'
 #import '@blocks/PagePartialBlock/PagePartialBlock.fragment.graphql'
 #import '@blocks/OrganisationsBlock/OrganisationsBlock.fragment.graphql'
 #import '@blocks/PeopleBlock/PeopleBlock.fragment.graphql'
+#import '@blocks/PivotBlock/PivotBlock.fragment.graphql'
 #import '@blocks/QuoteBlock/QuoteBlock.fragment.graphql'
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
@@ -31,6 +33,9 @@ query HomePage($locale: SiteLocale!) {
       ... on ImageBlockRecord {
         ...ImageBlock
       }
+      ... on ImageCardsBlockRecord {
+        ...ImageCardsBlock
+      }
       ... on OrganisationsBlockRecord {
         ...OrganisationsBlock
       }
@@ -39,6 +44,9 @@ query HomePage($locale: SiteLocale!) {
       }
       ... on PeopleBlockRecord {
         ...PeopleBlock
+      }
+      ... on PivotBlockRecord {
+        ...PivotBlock
       }
       ... on QuoteBlockRecord {
         ...QuoteBlock

@@ -1,0 +1,72 @@
+---
+import type { PivotBlockFragment } from '@lib/types/datocms';
+import { getLocale } from '@lib/i18n';
+import { getHref } from '@blocks/InternalLink/index';
+import Image from '@blocks/ImageBlock/Image.astro';
+import Text from '@blocks/TextBlock/Text.astro';
+
+interface Props {
+  block: PivotBlockFragment;
+}
+const { block } = Astro.props;
+const { text, image, pageLink } = block;
+const locale = getLocale();
+const actionUrl = getHref({ page: pageLink.page, locale });
+---
+
+<aside class='component'>
+  <div class='content theme--purple'>
+    <div class='text'>
+      <Text data={text} />
+      <a href={actionUrl} class='action--primary'>
+        {pageLink.title || pageLink.page.title}
+      </a>
+    </div>
+    <div>
+      <Image
+        image={image}
+        params={{ ar: '1:1', fit: 'crop' }}
+        class:list={['image']}
+      />
+    </div>
+  </div>
+</aside>
+
+<style>
+  .component {
+    container-type: inline-size;
+    container-name: PivotBlock;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 25px;
+    margin-block: 25px;
+    padding: 25px;
+    border-radius: 25px;
+  }
+
+  @container PivotBlock (min-width: 540px) {
+    .content {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .image {
+      margin-inline-start: auto;
+    }
+  }
+
+  .text {
+    max-width: 640px;
+  }
+  .text :global(h2) {
+    margin-top: 0;
+  }
+
+  .image {
+    border-radius: 10px;
+    width: 200px;
+  }
+</style>
