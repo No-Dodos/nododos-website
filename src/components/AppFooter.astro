@@ -7,6 +7,7 @@ import { datocmsNoIndex } from '@lib/search';
 import { siteName } from '@lib/seo';
 import Icon from '@components/Icon';
 import NoDodosLogo from '@components/NoDodosLogo.astro';
+import ThemeSelector from '@components/ThemeSelector/ThemeSelector.astro';
 
 
 const { contact, copyrightPage, privacyPage, ...props } = Astro.props;
@@ -29,9 +30,12 @@ const details = [
 <!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
 <footer role='contentinfo' {...datocmsNoIndex} {...props}>
   <div class='contact'>
-    <a rel='home'  href={ getHomeHref() } aria-label={t('go_to_home_page', { siteName })}>
-      <NoDodosLogo />
-    </a>
+    <div>
+      <a rel='home'  href={ getHomeHref() } aria-label={t('go_to_home_page', { siteName })}>
+        <NoDodosLogo />
+      </a>
+      <ThemeSelector target="body" />
+    </div>
     <div>
       <strong>Visit us</strong>
       <a
@@ -107,6 +111,11 @@ const details = [
   }
   .contact strong {
     display: block;
+  }
+
+  a[rel="home"] {
+    display: block;
+    text-decoration: none; 
   }
   .socials a {
     padding: 8px;
