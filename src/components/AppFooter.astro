@@ -2,9 +2,9 @@
 import type { IconName } from '@assets/icon-sprite';
 import { markEmail, phoneText, emailText } from '@lib/format';
 import { getLocale, t } from '@lib/i18n';
+import { getHomeHref, getHref } from '@lib/routing';
 import { datocmsNoIndex } from '@lib/search';
 import { siteName } from '@lib/seo';
-import { getHref } from '@blocks/InternalLink/index';
 import Icon from '@components/Icon';
 import NoDodosLogo from '@components/NoDodosLogo.astro';
 
@@ -29,7 +29,7 @@ const details = [
 <!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
 <footer role='contentinfo' {...datocmsNoIndex} {...props}>
   <div class='contact'>
-    <a rel='home'  href={`/${ locale }/`} aria-label={t('go_to_home_page', { siteName })}>
+    <a rel='home'  href={ getHomeHref() } aria-label={t('go_to_home_page', { siteName })}>
       <NoDodosLogo />
     </a>
     <div>
@@ -88,9 +88,9 @@ const details = [
     <p>
       {legalName}
       <span aria-hidden='true'>-</span>
-      <a href={getHref({ page: copyrightPage, locale })}>Copyright</a>
+      <a href={getHref({ record: copyrightPage, locale })}>Copyright</a>
       <span aria-hidden='true'>-</span>
-      <a href={getHref({ page: privacyPage, locale })}
+      <a href={getHref({ record: privacyPage, locale })}
       >{isNl ? 'Privacyverlaring' : 'Privacy statement'}</a
       >
     </p>

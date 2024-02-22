@@ -1,0 +1,13 @@
+#import '@lib/routing/ParentPage.fragment.graphql'
+
+fragment PageRoute on PageRecord {
+  __typename
+  id
+  title
+  slug
+  _allSlugLocales {
+    locale
+    value
+  }
+  ...ParentPage
+}

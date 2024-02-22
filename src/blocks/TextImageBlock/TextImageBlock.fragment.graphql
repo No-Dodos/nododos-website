@@ -1,9 +1,9 @@
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
 #import '@blocks/InternalLink/InternalLinkBlock.fragment.graphql'
-#import '@blocks/InternalLink/ParentPage.fragment.graphql'
 #import '@blocks/QuoteBlock/QuoteBlock.fragment.graphql'
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
+#import '@lib/routing/PageRoute.fragment.graphql'
 
 fragment TextImageBlock on TextImageBlockRecord {
   text {
@@ -32,14 +32,7 @@ fragment TextImageBlock on TextImageBlockRecord {
         title
       }
       ... on PageRecord {
-        id
-        title
-        slug
-        _allSlugLocales {
-          locale
-          value
-        }
-        ...ParentPage
+        ...PageRoute
       }
       ... on PersonRecord {
         id

@@ -1,4 +1,4 @@
-#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+#import '@lib/routing/PageRoute.fragment.graphql'
 
 fragment InternalLinkBlock on InternalLinkBlockRecord {
   id
@@ -10,12 +10,7 @@ fragment InternalLinkBlock on InternalLinkBlockRecord {
     }
     ... on PageRecord {
       title
-      slug
-      _allSlugLocales {
-        locale
-        value
-      }
-      ...ParentPage
+      ...PageRoute
     }
     ... on PersonRecord {
       title: name

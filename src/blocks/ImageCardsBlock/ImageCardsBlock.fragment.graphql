@@ -1,4 +1,4 @@
-#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+#import '@lib/routing/PageRoute.fragment.graphql'
 
 fragment ImageCardsBlock on ImageCardsBlockRecord {
   id
@@ -16,14 +16,7 @@ fragment ImageCardsBlock on ImageCardsBlockRecord {
     pageLink {
       title
       page {
-        __typename
-        title
-        slug
-        _allSlugLocales {
-          locale
-          value
-        }
-        ...ParentPage
+        ...PageRoute
       }
     }
   }

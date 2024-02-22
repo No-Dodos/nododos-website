@@ -3,7 +3,7 @@ import type { PageRecord } from '@lib/types/datocms';
 import type { Contact } from '@lib/format';
 import { markEmail, phoneText, emailText } from '@lib/format';
 import { getLocale } from '@lib/i18n';
-import { getHref } from '@blocks/InternalLink/index';
+import { getHref } from '@lib/routing';
 
 interface Props {
   contact: Contact;
@@ -17,7 +17,7 @@ const locale = getLocale();
 <div {...props}>
   <div class='content'>
     <div class='message'>
-      <a href={ getHref({ locale, page: privacyPage }) }>
+      <a href={ getHref({ locale, record: privacyPage }) }>
         { locale === 'nl' ? 'Geen cookies, wel privacy' : 'Cookies: no, privacy: yes' }
       </a>
     </div>

@@ -1,7 +1,7 @@
 ---
 import type { PivotBlockFragment } from '@lib/types/datocms';
 import { getLocale } from '@lib/i18n';
-import { getHref } from '@blocks/InternalLink/index';
+import { getHref } from '@lib/routing';
 import Image from '@blocks/ImageBlock/Image.astro';
 import Text from '@blocks/TextBlock/Text.astro';
 
@@ -11,7 +11,7 @@ interface Props {
 const { block } = Astro.props;
 const { text, image, pageLink } = block;
 const locale = getLocale();
-const actionUrl = getHref({ page: pageLink.page, locale });
+const actionUrl = getHref({ record: pageLink.page, locale });
 ---
 
 <aside class='component'>

@@ -1,4 +1,4 @@
-#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+#import '@lib/routing/PageRoute.fragment.graphql'
 
 fragment TextCardsBlock on TextCardsBlockRecord {
   id
@@ -8,14 +8,7 @@ fragment TextCardsBlock on TextCardsBlockRecord {
       links {
         __typename
         ... on PageRecord {
-          id
-          title
-          slug
-          _allSlugLocales {
-            locale
-            value
-          }
-          ...ParentPage
+          ...PageRoute
         }
       }
       value

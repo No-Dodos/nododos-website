@@ -1,4 +1,5 @@
-import type { SiteLocale, TranslationKey } from './i18n.types';
+import type { TranslationKey } from './i18n.types';
+import type { SiteLocale } from './types/datocms';
 import rosetta from 'rosetta';
 import messages from './i18n.messages.json';
 import { locales as siteLocales } from './site.json';
@@ -14,7 +15,7 @@ export type T = typeof i18n.t & ((key: TranslationKey) => string);
 export const t: T = i18n.t.bind(i18n);
 
 export function getLocale() {
-  return i18n.locale();
+  return i18n.locale() as SiteLocale;
 }
 
 

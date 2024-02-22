@@ -1,7 +1,7 @@
 ---
 import type { InternalLinkBlockFragment, SiteLocale } from '@lib/types/datocms';
 import { getLocale } from '@lib/i18n';
-import { getHref } from './index';
+import { getHref } from '@lib/routing';
 
 interface Props {
   block: InternalLinkBlockFragment;
@@ -11,7 +11,7 @@ const locale = getLocale() as SiteLocale;
 ---
 
 <a 
-  href={ getHref({ locale, page: block.page }) } 
+  href={ getHref({ locale, record: block.page }) } 
   class:list={ [`action--${block.style || 'default'}`] } 
   { ...props }
 >{ block.title || block.page?.title }</a>

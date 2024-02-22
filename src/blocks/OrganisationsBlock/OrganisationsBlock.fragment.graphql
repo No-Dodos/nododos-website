@@ -1,4 +1,4 @@
-#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+#import '@lib/routing/PageRoute.fragment.graphql'
 
 fragment OrganisationsBlock on OrganisationsBlockRecord {
   id
@@ -12,14 +12,7 @@ fragment OrganisationsBlock on OrganisationsBlockRecord {
       }
     }
     page {
-      __typename
-      title
-      slug
-      _allSlugLocales {
-        locale
-        value
-      }
-      ...ParentPage
+      ...PageRoute
     }
   }
 }

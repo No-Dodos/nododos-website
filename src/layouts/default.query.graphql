@@ -1,5 +1,5 @@
 #import '@blocks/InternalLink/InternalLinkBlock.fragment.graphql'
-#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+#import '@lib/routing/PageRoute.fragment.graphql'
 
 query DefaultLayout($locale: SiteLocale!) {
   site: _site(locale: $locale) {
@@ -22,20 +22,10 @@ query DefaultLayout($locale: SiteLocale!) {
       }
     }
     copyrightPage {
-      __typename
-      _allSlugLocales {
-        locale
-        value
-      }
-      ...ParentPage
+      ...PageRoute
     }
     privacyPage {
-      __typename
-      _allSlugLocales {
-        locale
-        value
-      }
-      ...ParentPage
+      ...PageRoute
     }
   }
 }

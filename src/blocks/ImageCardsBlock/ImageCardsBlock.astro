@@ -1,7 +1,7 @@
 ---
 import type { ImageCardsBlockFragment } from '@lib/types/datocms';
 import { getLocale } from '@lib/i18n';
-import { getHref } from '@blocks/InternalLink/index';
+import { getHref } from '@lib/routing';
 import Image from '@blocks/ImageBlock/Image.astro';
 import Text from '@blocks/TextBlock/Text.astro';
 
@@ -29,7 +29,7 @@ const locale = getLocale();
             <Text data={item.text} />
             {item.pageLink && (
               <a
-                href={getHref({ locale, page: item.pageLink.page })}
+                href={getHref({ locale, record: item.pageLink.page })}
                 class='action--secondary'
               >
                 {item.pageLink.title || item.pageLink.page.title}

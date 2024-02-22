@@ -2,7 +2,6 @@
 #import '@blocks/EmbedBlock/EmbedBlock.fragment.graphql'
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
 #import '@blocks/ImageCardsBlock/ImageCardsBlock.fragment.graphql'
-#import '@blocks/InternalLink/ParentPage.fragment.graphql'
 #import '@blocks/OrganisationsBlock/OrganisationsBlock.fragment.graphql'
 #import '@blocks/PagePartialBlock/PagePartialBlock.fragment.graphql'
 #import '@blocks/PeopleBlock/PeopleBlock.fragment.graphql'
@@ -14,6 +13,7 @@
 #import '@blocks/TextImageBlock/TextImageBlock.fragment.graphql'
 #import '@blocks/VideoBlock/VideoBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
+#import '@lib/routing/ParentPage.fragment.graphql'
 
 query Page($locale: SiteLocale!, $slug: String!) {
   page(locale: $locale, filter: { slug: { eq: $slug } }) {

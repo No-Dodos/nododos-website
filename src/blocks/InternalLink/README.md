@@ -2,6 +2,7 @@
 
 **Resolves URL for different page records from the CMS (like the home page or a generic page).**
 
+
 ## Usage
 
 ### Adding a page model

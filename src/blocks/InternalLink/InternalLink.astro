@@ -1,7 +1,7 @@
 ---
 import type { SiteLocale } from '@lib/types/datocms';
 import { getLocale } from '@lib/i18n';
-import { getHref } from './index';
+import { getHref } from '@lib/routing';
 
 type AnyPage = {
   __typename: string;
@@ -16,7 +16,7 @@ interface Props {
 
 const { page, openInNewTab, ...props } = Astro.props;
 const locale = getLocale() as SiteLocale;
-const href = getHref({ locale, page });
+const href = getHref({ locale, record: page });
 const target = openInNewTab ? '_blank' : null;
 ---
 
