@@ -9,6 +9,15 @@ fragment VideoEmbedBlock on VideoEmbedBlockRecord {
     height
     width
   }
+  coverImage {
+    width
+    height
+    url
+    responsiveImage {
+      aspectRatio
+      base64
+    }
+  }
   title
   autoplay
   mute
