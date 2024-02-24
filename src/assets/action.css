@@ -1,3 +1,8 @@
+[class^="action--"] {
+  font-size: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
 [class^="action--"]+[class^="action--"] {
   margin-inline-start: 16px;
 }

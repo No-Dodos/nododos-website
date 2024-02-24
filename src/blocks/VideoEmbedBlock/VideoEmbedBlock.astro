@@ -85,6 +85,7 @@ function getVideoUrl({ loop, mute, video }: { loop: boolean; mute: boolean; vide
 <figure>
   <video-embed
     data-autoplay={autoplay ? 'true' : undefined}
+    data-provider={video.provider}
     data-video-url={getVideoUrl({ loop: Boolean(loop), mute: Boolean(mute), video })}
     style={{ aspectRatio }}
   >
@@ -100,6 +101,15 @@ function getVideoUrl({ loop, mute, video }: { loop: boolean; mute: boolean; vide
         />
       }
     </PlayButton>
+    <div class="consent-alert theme--dark" role="alert" hidden>
+      <p class="consent-alert__text">{ t('consent_message_service', { service: providerName })}</p>
+      <div class="consent-alert__actions">
+        <button type="button" class="action--primary">{ t('allow_service', { service: providerName }) }</button>
+        <a href={ video.url } class="action--secondary" target="_blank" rel="noopener noreferrer">
+          { t('watch_video_on_provider', { provider: providerName }) } <Icon name="external" />
+        </a>
+      </div>
+    </div>
     <iframe hidden allowfullscreen allow="autoplay" title={ title } style={{ aspectRatio }}></iframe>
   </video-embed>
   <figcaption>
@@ -119,6 +129,12 @@ function getVideoUrl({ loop, mute, video }: { loop: boolean; mute: boolean; vide
     width: 100%;
     background-color: #f1f1f1;
   }
+  video-embed > * {
+    border-radius: 10px;
+  }
+  video-embed > [hidden] {
+    display: none;
+  }
   img,
   iframe {
     position: absolute;
@@ -126,15 +142,35 @@ function getVideoUrl({ loop, mute, video }: { loop: boolean; mute: boolean; vide
     top: 0;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
   }
   img {
     z-index: 0;
     object-fit: cover;
   }
+  [role="alert"] {
+    z-index: 2;
+  }
   iframe {
     z-index: 3;
     border: none;
+  }
+
+  .consent-alert:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .consent-alert__text {
+    max-width: 400px;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .consent-alert__actions {
+    text-align: center;
   }
 
   /* basic styling, can be removed */
