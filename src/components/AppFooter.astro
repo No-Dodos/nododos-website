@@ -9,13 +9,20 @@ import Icon from '@components/Icon';
 import NoDodosLogo from '@components/NoDodosLogo.astro';
 import ThemeSelector from '@components/ThemeSelector/ThemeSelector.astro';
 
-
 const { contact, copyrightPage, privacyPage, ...props } = Astro.props;
 const locale = getLocale();
 const isNl = locale === 'nl';
-const socialPlatforms: { key: IconName, title: string, url: string }[] = [
-  { key: 'linkedin', title: 'LinkedIn', url: 'https://www.linkedin.com/company/no-dodos/' },
-  { key: 'instagram', title: 'Instagram', url: 'https://www.instagram.com/no_dodos/' },
+const socialPlatforms: { key: IconName; title: string; url: string }[] = [
+  {
+    key: 'linkedin',
+    title: 'LinkedIn',
+    url: 'https://www.linkedin.com/company/no-dodos/',
+  },
+  {
+    key: 'instagram',
+    title: 'Instagram',
+    url: 'https://www.instagram.com/no_dodos/',
+  },
 ];
 const legalName = isNl
   ? 'No Dodos Coöperatie U.A.'
@@ -23,7 +30,7 @@ const legalName = isNl
 const details = [
   { title: 'KvK', value: '92330606' },
   { title: isNl ? 'BTW' : 'VAT', value: 'NL866007581B01' },
-  { title: 'IBAN', value: 'NL10 ASNB 8821 1780 72'.replaceAll(' ','') },
+  { title: 'IBAN', value: 'NL46 TRIO 0320 8157 49' },
 ];
 ---
 
@@ -31,13 +38,17 @@ const details = [
 <footer role='contentinfo' {...datocmsNoIndex} {...props}>
   <div class='contact'>
     <div>
-      <a rel='home'  href={ getHomeHref() } aria-label={t('go_to_home_page', { siteName })}>
+      <a
+        rel='home'
+        href={getHomeHref()}
+        aria-label={t('go_to_home_page', { siteName })}
+      >
         <NoDodosLogo />
       </a>
-      <ThemeSelector target="body" />
+      <ThemeSelector target='body' />
     </div>
     <div>
-      <strong>{ isNl ? 'Bezoek ons' : 'Visit us' }</strong>
+      <strong>{isNl ? 'Bezoek ons' : 'Visit us'}</strong>
       <a
         href='https://www.google.nl/maps/place/Koornmarkt+22,+2611+EG+Delft/@52.0093477,4.3573054,17z/'
         target='_blank'
@@ -48,7 +59,7 @@ const details = [
       </a>
     </div>
     <div>
-      <strong>{ isNl ? 'Neem contact op' : 'Contact us' }</strong>
+      <strong>{isNl ? 'Neem contact op' : 'Contact us'}</strong>
       <a
         href={`tel:${contact.phone.replace(/\s/g, '')}`}
         title={phoneText(contact)}
@@ -113,9 +124,9 @@ const details = [
     display: block;
   }
 
-  a[rel="home"] {
+  a[rel='home'] {
     display: block;
-    text-decoration: none; 
+    text-decoration: none;
   }
   .socials a {
     padding: 8px;
