@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { IconName } from '@assets/icon-sprite';
 import { markEmail, phoneText, emailText } from '@lib/format';
 import { getLocale, t } from '@lib/i18n';
@@ -8,6 +9,7 @@ import { siteName } from '@lib/seo';
 import Icon from '@components/Icon';
 import NoDodosLogo from '@components/NoDodosLogo.astro';
 import ThemeSelector from '@components/ThemeSelector/ThemeSelector.astro';
+import CertifiedBCorpPendingLogo from '@assets/images/b-corp-pending-logo-inverse.png';
 
 const { contact, copyrightPage, privacyPage, ...props } = Astro.props;
 const locale = getLocale();
@@ -37,15 +39,24 @@ const details = [
 <!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
 <footer role='contentinfo' {...datocmsNoIndex} {...props}>
   <div class='contact'>
-    <div>
-      <a
-        rel='home'
-        href={getHomeHref()}
-        aria-label={t('go_to_home_page', { siteName })}
-      >
-        <NoDodosLogo />
-      </a>
-      <ThemeSelector target='body' />
+    <div class='logos'>
+      <div>
+        <a
+          rel='home'
+          href={getHomeHref()}
+          aria-label={t('go_to_home_page', { siteName })}
+        >
+          <NoDodosLogo />
+        </a>
+        <ThemeSelector target='body' />
+      </div>
+      <Image
+        src={CertifiedBCorpPendingLogo}
+        alt='Certified B Corporation Pending'
+        width='95'
+        height='163'
+        class='b-corp-logo'
+      />
     </div>
     <div>
       <strong>{isNl ? 'Bezoek ons' : 'Visit us'}</strong>
@@ -128,6 +139,18 @@ const details = [
     display: block;
     text-decoration: none;
   }
+
+  .contact .logos {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .b-corp-logo {
+    height: 120px;
+    width: auto;
+    margin-top: -12px;
+  }
+
   .socials a {
     padding: 8px;
     color: var(--color-background);
@@ -154,10 +177,11 @@ const details = [
     display: inline-block;
     margin-inline: 10px;
   }
-  @media screen and (min-width: 520px) {
+  @media screen and (min-width: 600px) {
     .contact {
       display: flex;
       justify-content: space-between;
+      gap: 20px;
     }
     .legal {
       text-align: center;
