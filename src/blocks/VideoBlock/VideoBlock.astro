@@ -43,7 +43,10 @@ const videoAttributes = {
       As a JS check is needed for the first video to appear, it's wrapped in a div to reserve space for it.
       */
     }
-    <div class='canvas' style={{ aspectRatio }}>
+    <div
+      class:list={['canvas', `canvas--${block.style}`]}
+      style={{ aspectRatio }}
+    >
       <video {...videoAttributes} data-video>
         <source src={video.streamingUrl} type='application/vnd.apple.mpegurl' />
         <VideoTextTracks tracks={block.tracks as VideoTextTrackRecord[]} />
@@ -85,8 +88,33 @@ const videoAttributes = {
   }
 
   .canvas {
-    width: 100%;
+    position: relative;
+    width: auto;
     max-height: 80vh;
+    margin-inline: auto;
+  }
+  .canvas--cards::before,
+  .canvas--cards::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+  .canvas--cards::before {
+    z-index: -1;
+    background-color: var(--saffron);
+    transform-origin: 50% 75%;
+    transform: rotate(-20deg);
+  }
+  .canvas--cards::after {
+    z-index: -2;
+    background-color: var(--zaffre);
+    transform-origin: 80% 70%;
+    transform: rotate(25deg);
   }
 
   video {

@@ -30,4 +30,5 @@ fragment VideoBlock on VideoBlockRecord {
   coverImage {
     url
   }
+  style
 }
