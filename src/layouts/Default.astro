@@ -17,6 +17,7 @@ import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs.astro';
 import type { Breadcrumb } from '@components/Breadcrumbs';
 import ContactHeader from '@components/ContactHeader.astro';
 import IconSprite from '@components/Icon/IconSprite.astro';
+import PerfHead from '@components/PerfHead/PerfHead.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
 import SeoHead from '@components/SeoHead.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
@@ -50,8 +51,9 @@ const theme = ['dark', 'light', 'green', 'orange'].includes(
 <!doctype html>
 <html lang={locale}>
   <head>
-    <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width' />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <PerfHead />
     <SeoHead
       pageUrls={pageUrls}
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
