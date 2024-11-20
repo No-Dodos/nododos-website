@@ -1,0 +1,57 @@
+---
+import type { AppRecord } from '@lib/types/datocms';
+import { t } from '@lib/i18n';
+import { getHomeHref } from '@lib/routing';
+import { datocmsNoIndex } from '@lib/search';
+import { siteName, type PageUrl } from '@lib/seo';
+import InternalLinkBlock from '@blocks/InternalLink/InternalLinkBlock.astro';
+import AppMenu from '@components/AppMenu.astro';
+import LocaleSelector from '@components/LocaleSelector/LocaleSelector.astro';
+import NoDodosLogo from '@components/NoDodosLogo.astro';
+
+interface Props {
+  menuItems: Pick<AppRecord, 'menuItems'>;
+  pageUrls: PageUrl[];
+  primaryAction: AppRecord['primaryAction'];
+}
+const { menuItems, pageUrls, primaryAction } = Astro.props;
+---
+
+<header {...datocmsNoIndex}>
+  <div class='header-top'>
+    {
+      /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */
+    }
+    <a
+      rel='home'
+      href={getHomeHref()}
+      class='logo'
+      aria-label={t('go_to_home_page', { siteName })}
+    >
+      <NoDodosLogo />
+    </a>
+    <div>
+      <LocaleSelector pageUrls={pageUrls} />
+      {
+        /* <a rel="search" href={ getSearchPathname(locale) }>{ t('search') }</a> */
+      }
+      <InternalLinkBlock block={primaryAction} />
+    </div>
+  </div>
+  <AppMenu items={menuItems} />
+</header>
+
+<style>
+  header {
+    padding-block: 15px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-top div {
+    display: flex;
+    align-items: center;
+  }
+</style>
