@@ -17,11 +17,13 @@ const getPageHref = (locale: SiteLocale) => {
     ? new URL(pageUrl.pathname, Astro.site)
     : new URL(`/${locale}/`, Astro.site);
 };
+const localeSelectorId =
+  'locale-selector-' + Math.random().toString(36).slice(2);
 ---
 
 <locale-selector {...props}>
-  <nav aria-labelledby='locale-selector-title'>
-    <span id='locale-selector-title' class='a11y-sr-only'>
+  <nav aria-labelledby={localeSelectorId}>
+    <span id={localeSelectorId} class='a11y-sr-only'>
       {t('select_language')}
     </span>
     <!-- [html-validate-disable-next no-redundant-role -- see ./README.md] -->
