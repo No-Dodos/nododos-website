@@ -1,0 +1,38 @@
+---
+import type { AppRecord } from '@lib/types/datocms';
+import type { PageUrl } from '@lib/seo';
+import { datocmsNoIndex } from '@lib/search';
+import AppLogo from '@components/AppLogo.astro';
+import AppMenu from '@components/AppMenu/AppMenu.astro';
+
+interface Props {
+  menuItems: Pick<AppRecord, 'menuItems'>;
+  pageUrls: PageUrl[];
+  primaryAction: AppRecord['primaryAction'];
+}
+const { menuItems, pageUrls, primaryAction } = Astro.props;
+---
+
+<header {...datocmsNoIndex}>
+  <AppLogo />
+  <div>
+    <AppMenu
+      items={menuItems}
+      pageUrls={pageUrls}
+      primaryAction={primaryAction}
+    />
+  </div>
+</header>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding-block: 15px;
+  }
+  header > *:last-child {
+    flex-grow: 1;
+  }
+</style>

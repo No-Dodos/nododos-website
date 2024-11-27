@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { locales } from '@lib/i18n';
 import { datocmsRequest } from '@lib/datocms';
-import type { OpenSearchXmlQuery, Site } from '@lib/types/datocms';
+import type { OpenSearchXmlQuery, Site, SiteLocale } from '@lib/types/datocms';
 import { getSearchPathname, getOpenSearchName, queryParamName } from '@lib/search';
 import query from './_opensearch.query.graphql';
 
@@ -33,7 +33,7 @@ const openSearchXml = (
 `.trim();
 
 export const GET: APIRoute = async ({ params, site }) => {
-  const locale = params.locale!;
+  const locale = params.locale as SiteLocale;
   const data = await datocmsRequest<OpenSearchXmlQuery>({ query, variables: { locale } }) as { site: Site };
   const { favicon, globalSeo } = data.site;
   const searchPageUrl = `${ site!.origin }${ getSearchPathname(locale) }`;

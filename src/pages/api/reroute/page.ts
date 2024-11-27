@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { datocmsRequest } from '@lib/datocms';
-import type { PageQuery, PageRecord, SiteLocale } from '@lib/types/datocms';
+import type { PageRecord, ReroutePageQuery, SiteLocale } from '@lib/types/datocms';
 import { getPagePath } from '@lib/routing/page';
 import query from './_page.query.graphql';
 
@@ -26,9 +26,7 @@ export const GET: APIRoute = async ({ request }) => {
     return jsonResponse({ error: 'Missing \'slug\' parameter' }, 400);
   }
 
-  const { page } = (await datocmsRequest<PageQuery>({ query, variables: { slug, locale } })) as {
-    page: PageRecord;
-  };
+  const { page } = (await datocmsRequest<ReroutePageQuery>({ query, variables: { slug, locale } })) as { page: PageRecord };
   if (!page) {
     return jsonResponse({ error: 'Page not found' }, 404);
   }

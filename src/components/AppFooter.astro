@@ -11,7 +11,7 @@ import NoDodosLogo from '@components/NoDodosLogo.astro';
 import ThemeSelector from '@components/ThemeSelector/ThemeSelector.astro';
 import CertifiedBCorpPendingLogo from '@assets/images/b-corp-pending-logo-inverse.png';
 
-const { contact, copyrightPage, privacyPage, ...props } = Astro.props;
+const { contact, copyrightPage, privacyPage } = Astro.props;
 const locale = getLocale();
 const isNl = locale === 'nl';
 const socialPlatforms: { key: IconName; title: string; url: string }[] = [
@@ -37,7 +37,7 @@ const details = [
 ---
 
 <!-- [html-validate-disable-next no-redundant-role -- is footer specifically for entire site] -->
-<footer role='contentinfo' {...datocmsNoIndex} {...props}>
+<footer role='contentinfo' {...datocmsNoIndex}>
   <div class='contact'>
     <div class='logos'>
       <div>

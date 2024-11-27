@@ -1,0 +1,165 @@
+---
+import type { AppRecord } from '@lib/types/datocms';
+import type { PageUrl } from '@lib/seo';
+import { t } from '@lib/i18n';
+import InternalLink from '@blocks/InternalLink/InternalLink.astro';
+import InternalLinkBlock from '@blocks/InternalLink/InternalLinkBlock.astro';
+import AppLogo from '@components/AppLogo.astro';
+import Icon from '@components/Icon/';
+import LocaleSelector from '@components/LocaleSelector/LocaleSelector.astro';
+
+type Item = Pick<AppRecord, 'menuItems'>['menuItems'][0];
+
+export interface Props {
+  items: Pick<AppRecord, 'menuItems'>;
+  pageUrls: PageUrl[];
+  primaryAction: AppRecord['primaryAction'];
+}
+const { items, pageUrls, primaryAction } = Astro.props;
+---
+
+<app-menu>
+  <nav class='main-menu' aria-labelledby='main-menu-title'>
+    <span id='main-menu-title' class='a11y-sr-only'>{t('main_menu')}</span>
+    <!-- [html-validate-disable-next no-redundant-role -- see LocaleSelector/README.md] -->
+    <ul role='list' class='main-menu__list' data-menu-list>
+      {
+        items.map((item: Item) => (
+          <li class='main-menu__item'>
+            {item.__typename === 'MenuItemInternalRecord' ? (
+              <InternalLink page={item.link} class='app-menu__link'>
+                {item.title || item.link.title}
+              </InternalLink>
+            ) : (
+              item.title
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <LocaleSelector pageUrls={pageUrls} class='locale-selector' />
+  {/* <a rel="search" href={ getSearchPathname(locale) }>{ t('search') }</a> */}
+  <InternalLinkBlock block={primaryAction} />
+  <button
+    type='button'
+    class='action--secondary action--icon-only menu-button'
+    data-menu-button
+  >
+    <Icon name='menu' />
+    <span class='a11y-sr-only'>{t('open_menu')}</span>
+  </button>
+  <dialog data-menu-dialog>
+    <nav aria-labelledby='menu-dialog-title'>
+      <span id='menu-dialog-title' class='a11y-sr-only'>{t('main_menu')}</span>
+      <AppLogo />
+      <!-- [html-validate-disable-next no-redundant-role -- see LocaleSelector/README.md] -->
+      <ul role='list' class='dialog__list'>
+        {
+          items.map((item: Item) => (
+            <li class='dialog__item'>
+              {item.__typename === 'MenuItemInternalRecord' ? (
+                <InternalLink page={item.link} class='app-menu__link'>
+                  {item.title || item.link.title}
+                </InternalLink>
+              ) : (
+                item.title
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <LocaleSelector pageUrls={pageUrls} />
+    <button
+      type='button'
+      class='action--secondary action--icon-only dialog__button'
+      data-menu-close
+    >
+      <Icon name='close' />
+      <span class='a11y-sr-only'>{t('close_menu')}</span>
+    </button>
+  </dialog>
+</app-menu>
+
+<script src='./AppMenu.client.ts'></script>
+
+<style>
+  app-menu {
+    display: flex;
+    align-items: center;
+  }
+
+  .app-menu__link {
+    padding: 5px;
+    font-weight: bold;
+    text-decoration-color: transparent;
+  }
+
+  .main-menu {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .main-menu__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .main-menu__item {
+    display: inline-block;
+    margin-inline-end: 10px;
+  }
+
+  button {
+    display: none;
+    --color-action-secondary-border: currentColor;
+  }
+  button > [data-icon] {
+    transform: scale(1.2);
+  }
+
+  app-menu.is-compact button {
+    display: block;
+  }
+  app-menu.is-compact .main-menu__list,
+  app-menu.is-compact .locale-selector {
+    display: none;
+  }
+
+  dialog {
+    height: 100vh;
+    max-height: 100vh; /* overwrite default */
+    width: 300px;
+    max-width: 100vw;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: none;
+    margin-block: 0;
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+    padding: 20px;
+  }
+
+  dialog::backdrop {
+    background-color: var(--color-background);
+    opacity: 0.8;
+  }
+
+  .dialog__list {
+    list-style: none;
+    margin-block: 30px;
+    padding: 0;
+  }
+  .dialog__item {
+    margin-block: 20px;
+  }
+  .dialog__button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin: 0;
+    padding: 12px;
+  }
+</style>

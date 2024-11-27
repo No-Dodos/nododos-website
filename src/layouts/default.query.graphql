@@ -9,6 +9,17 @@ query DefaultLayout($locale: SiteLocale!) {
     }
   }
   app(locale: $locale) {
+    menuItems {
+      __typename
+      ... on MenuItemInternalRecord {
+        title
+        link {
+          ... on PageRecord {
+            ...PageRoute
+          }
+        }
+      }
+    }
     primaryAction {
       ... on InternalLinkBlockRecord {
         ...InternalLinkBlock

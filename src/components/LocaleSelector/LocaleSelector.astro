@@ -7,42 +7,48 @@ import '@assets/a11y.css';
 const activeLocale = getLocale();
 
 interface Props {
-  pageUrls: PageUrl[],
+  pageUrls: PageUrl[];
 }
-const { pageUrls } = Astro.props;
+const { pageUrls, ...props } = Astro.props;
 
 const getPageHref = (locale: SiteLocale) => {
   const pageUrl = pageUrls.find((pageUrl) => pageUrl.locale === locale);
   return pageUrl
     ? new URL(pageUrl.pathname, Astro.site)
-    : new URL(`/${ locale }/`, Astro.site);
+    : new URL(`/${locale}/`, Astro.site);
 };
+const localeSelectorId =
+  'locale-selector-' + Math.random().toString(36).slice(2);
 ---
-<locale-selector>
-  <nav aria-labelledby="locale-selector-title">
-    <span id="locale-selector-title" class="a11y-sr-only">
-      { t('select_language') }
+
+<locale-selector {...props}>
+  <nav aria-labelledby={localeSelectorId}>
+    <span id={localeSelectorId} class='a11y-sr-only'>
+      {t('select_language')}
     </span>
     <!-- [html-validate-disable-next no-redundant-role -- see ./README.md] -->
-    <ul role="list" style="list-style: none;">
-      { locales.map(locale => (
-        <li>
-          <a hreflang={ locale }
-            href={ getPageHref(locale as SiteLocale) }
-            aria-current={ locale === activeLocale ? 'page' : 'false' }
-            lang={locale}
-            title={ getLocaleName(locale) }
-          >
-            { locale }
-            <span class="a11y-sr-only">{ getLocaleName(locale) }</span>
-          </a>
-        </li>
-      )) }
+    <ul role='list' style='list-style: none;'>
+      {
+        locales.map((locale) => (
+          <li>
+            <a
+              hreflang={locale}
+              href={getPageHref(locale as SiteLocale)}
+              aria-current={locale === activeLocale ? 'page' : 'false'}
+              lang={locale}
+              title={getLocaleName(locale)}
+            >
+              {locale}
+              <span class='a11y-sr-only'>{getLocaleName(locale)}</span>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </locale-selector>
 
-<script src="./LocaleSelector.client.ts"></script>
+<script src='./LocaleSelector.client.ts'></script>
 
 <style>
   /* basic styling, can be removed */
@@ -59,7 +65,7 @@ const getPageHref = (locale: SiteLocale) => {
     text-decoration: none;
     padding: 5px;
   }
-  [aria-current="page"] {
+  [aria-current='page'] {
     font-weight: bold;
   }
 </style>
