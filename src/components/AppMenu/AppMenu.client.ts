@@ -2,7 +2,7 @@ class AppMenu extends HTMLElement {
   #menuButton: HTMLButtonElement;
   #dialog: HTMLDialogElement;
   #menuList: HTMLElement;
-  #observer: ResizeObserver;
+  #observer: ResizeObserver | undefined;
 
   constructor() {
     super();
@@ -36,7 +36,7 @@ class AppMenu extends HTMLElement {
   disconnectedCallback() {
     this.#menuButton.removeEventListener('click', this.open.bind(this));
     this.#dialog.removeEventListener('click', this.close.bind(this));
-    this.#observer.disconnect();
+    this.#observer?.disconnect();
   }
 }
 
