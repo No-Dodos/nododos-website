@@ -7,28 +7,37 @@ interface Props {
   block: QuoteBlockFragment;
 }
 const { block } = Astro.props;
-const { text, author } = block;
+const { text, author, style = 'small' } = block;
 const defaultColor = '#089B54';
-const imageColor = block.color?.hex || defaultColor;
-const imageSize = 50;
-const imageUrl = author.image 
-  ? `${ author.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=crop&crop=faces&bg=${ imageColor.replace('#', '') }`
-  : author.organisation.image
-    ? `${ author.organisation.image.url }?auto=format&w=${ imageSize }&ar=1:1&dpr=2&fit=clip`
+const imageColor = author.color?.hex || defaultColor;
+const imageSize = style === 'large' ? 120 : 50;
+const imageUrl = author.image
+  ? `${author.image.url}?auto=format&w=${imageSize}&ar=1:1&dpr=2&fit=crop&crop=faces&bg=${imageColor.replace('#', '')}`
+  : author.organisation?.image
+    ? `${author.organisation.image.url}?auto=format&w=${imageSize}&ar=1:1&dpr=2&fit=clip`
     : undefined;
-
 ---
 
 <blockquote>
-  { imageUrl && (
-    <img alt="" width={ imageSize } height={ imageSize } src={ imageUrl } />
-  )}
+  {
+    imageUrl && (
+      <img
+        alt=''
+        width={imageSize}
+        height={imageSize}
+        src={imageUrl}
+        class={`image--${style}`}
+      />
+    )
+  }
   <div>
-    <Text data={ text as StructuredText } />
+    <div class={`text--${style}`}>
+      <Text data={text as StructuredText} />
+    </div>
     <footer>
-      <span>{ author.fullName }</span>
-      <span>{ author.positionTitle }</span>
-      <span>{ author.organisation.name }</span>
+      <span>{author.fullName}</span>
+      <span>{author.positionTitle}</span>
+      <span>{author.organisation?.name}</span>
     </footer>
   </div>
 </blockquote>
@@ -39,16 +48,34 @@ const imageUrl = author.image
     align-items: center;
     margin-block: 15px;
     margin-inline: 0;
+    max-width: 800px;
   }
   blockquote :global(p) {
     margin-block: 5px;
     margin-inline: 0;
   }
+  .text--large {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2em;
+    text-wrap-style: balance;
+  }
+  .text--large::before {
+    content: '“';
+    float: left;
+    color: #089b54;
+  }
+
   img {
     display: block;
     aspect-ratio: 1;
     border-radius: 50%;
+  }
+  .image--small {
     margin-right: 15px;
+  }
+  .image--large {
+    margin-right: 30px;
   }
   footer::before {
     content: '— ';

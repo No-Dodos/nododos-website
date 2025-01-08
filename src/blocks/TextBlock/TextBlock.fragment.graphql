@@ -1,5 +1,7 @@
+#import '@blocks/ListBlock/ListBlock.fragment.graphql'
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
 #import '@blocks/InternalLink/InternalLinkBlock.fragment.graphql'
+#import '@blocks/OrganisationsBlock/OrganisationsBlock.fragment.graphql'
 #import '@blocks/QuoteBlock/QuoteBlock.fragment.graphql'
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/VideoBlock/VideoBlock.fragment.graphql'
@@ -13,11 +15,17 @@ fragment TextBlock on TextBlockRecord {
   text {
     blocks {
       __typename
+      ... on ListBlockRecord {
+        ...ListBlock
+      }
       ... on ImageBlockRecord {
         ...ImageBlock
       }
       ... on InternalLinkBlockRecord {
         ...InternalLinkBlock
+      }
+      ... on OrganisationsBlockRecord {
+        ...OrganisationsBlock
       }
       ... on QuoteBlockRecord {
         ...QuoteBlock

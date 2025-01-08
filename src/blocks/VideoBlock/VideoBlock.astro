@@ -1,5 +1,9 @@
 ---
-import type { UploadVideoField, VideoBlockFragment, VideoTextTrackRecord } from '@lib/types/datocms';
+import type {
+  UploadVideoField,
+  VideoBlockFragment,
+  VideoTextTrackRecord,
+} from '@lib/types/datocms';
 import VideoFallback from './VideoFallback.astro';
 import VideoTextTracks from './VideoTextTracks.astro';
 
@@ -12,7 +16,9 @@ const title = block.videoAsset.title || block.title;
 const video = block.videoAsset.video as UploadVideoField;
 const aspectRatio = width && height ? width / height : null;
 const videoAttributes = {
-  poster: video.thumbnailUrl,
+  poster: block.coverImage?.url
+    ? `${block.coverImage.url}?auto=format,compress&q=80&w=${width}`
+    : video.thumbnailUrl,
   controls: true,
   crossorigin: 'anonymous',
   loop: block.loop ? 'true' : null,
@@ -25,42 +31,51 @@ const videoAttributes = {
 ---
 
 <video-block
-  data-autoplay={ block.autoplay ? 'true' : 'false' }
-  data-mp4-url={ video.mp4Url }
-  data-streaming-url={ video.streamingUrl }
+  data-autoplay={block.autoplay ? 'true' : 'false'}
+  data-mp4-url={video.mp4Url}
+  data-streaming-url={video.streamingUrl}
 >
   <figure>
-    { /* We use 2 video elements: 
+    {
+      /* We use 2 video elements: 
       - The first is enhanced in the client-side script to use streaming with adaptive bitrate.
       - The second is fallback native video element that works without JS or custom elmenet support.
       As a JS check is needed for the first video to appear, it's wrapped in a div to reserve space for it.
-      */ }
-    <div style={{ aspectRatio }}>
-      <video { ...videoAttributes } data-video>
+      */
+    }
+    <div class='canvas' style={{ aspectRatio }}>
+      <video {...videoAttributes} data-video>
         <source src={video.streamingUrl} type='application/vnd.apple.mpegurl' />
-        <VideoTextTracks tracks={ block.tracks as VideoTextTrackRecord[] } />
-        <VideoFallback alt={ alt } title={ title } video={ video } />
+        <VideoTextTracks tracks={block.tracks as VideoTextTrackRecord[]} />
+        <VideoFallback alt={alt} title={title} video={video} />
       </video>
       <noscript>
-        <video { ...videoAttributes }>
-          <source src={video.streamingUrl} type='application/vnd.apple.mpegurl' />
+        <video {...videoAttributes}>
+          <source
+            src={video.streamingUrl}
+            type='application/vnd.apple.mpegurl'
+          />
           <source src={video.streamingUrl} type='application/x-mpegURL' />
           <source src={video.mp4Url} type='video/mp4' />
-          <VideoTextTracks tracks={ block.tracks as VideoTextTrackRecord[] } />
-          <VideoFallback alt={ alt } title={ title } video={ video } />
+          <VideoTextTracks tracks={block.tracks as VideoTextTrackRecord[]} />
+          <VideoFallback alt={alt} title={title} video={video} />
         </video>
       </noscript>
     </div>
-    { title && <figcaption>{ title }</figcaption>}
+    {title && <figcaption>{title}</figcaption>}
   </figure>
 </video-block>
 
-<script src="./VideoBlock.client.ts"></script>
+<script src='./VideoBlock.client.ts'></script>
 
 <style>
   /* functional styling */
   figure {
     position: relative;
+  }
+  video-block {
+    display: block;
+    margin-block: 50px;
   }
   video-block [data-video] {
     display: none;
@@ -69,14 +84,22 @@ const videoAttributes = {
     display: block;
   }
 
-  video {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
+  .canvas {
+    width: 100%;
+    max-height: 80vh;
   }
 
-  /* basic styling, can be removed */
+  video {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    margin-inline: auto;
+    border-radius: 10px;
+  }
+
   figcaption {
     text-align: center;
   }

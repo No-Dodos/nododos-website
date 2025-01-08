@@ -5,20 +5,27 @@ import leavesSvg from '@assets/images/leaves-side.svg';
 import Text from './Text.astro';
 
 interface Props {
-  block: TextBlockFragment
+  block: TextBlockFragment;
 }
 const { block } = Astro.props;
 ---
 
-<div class:list={['component', { 
-  'component--panel': block.theme,
-  [`theme--${block.theme}`]: block.theme,
-  [`style--${block.style}`]: block.style,
-} ]} >
-  <div class:list={['layout', `layout--${block.layout}`, `style--${block.style}`]}>
-    <Text data={ block.text as StructuredText } />
+<div
+  class:list={[
+    'component',
+    {
+      'component--panel': block.theme,
+      [`theme--${block.theme}`]: block.theme,
+      [`style--${block.style}`]: block.style,
+    },
+  ]}
+>
+  <div
+    class:list={['layout', `layout--${block.layout}`, `style--${block.style}`]}
+  >
+    <Text data={block.text as StructuredText} />
   </div>
-  <img alt="" src={leavesSvg.src} class="leaves" />
+  <img alt='' src={leavesSvg.src} class='leaves' />
 </div>
 
 <style>
@@ -41,7 +48,6 @@ const { block } = Astro.props;
 
   .layout :global(h1, h2) {
     margin-top: 50px;
-    max-width: 500px;
   }
   .layout--default {
     max-width: 640px;
@@ -68,9 +74,9 @@ const { block } = Astro.props;
     }
   }
 
-  .leaves { 
+  .leaves {
     display: none;
-  }    
+  }
   @container TextBlock (min-width: 480px) {
     .style--with-leaves .leaves {
       display: block;

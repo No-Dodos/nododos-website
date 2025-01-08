@@ -5,6 +5,7 @@ import EmbedBlock from './EmbedBlock/EmbedBlock.astro';
 import ImageBlock from './ImageBlock/ImageBlock.astro';
 import ImageCardsBlock from './ImageCardsBlock/ImageCardsBlock.astro';
 import InternalLinkBlock from './InternalLink/InternalLinkBlock.astro';
+import ListBlock from './ListBlock/ListBlock.astro';
 import OrganisationsBlock from './OrganisationsBlock/OrganisationsBlock.astro';
 import PagePartialBlock from './PagePartialBlock/PagePartialBlock.astro';
 import PeopleBlock from './PeopleBlock/PeopleBlock.astro';
@@ -23,6 +24,7 @@ const blocksByTypename = {
   ImageBlockRecord: ImageBlock,
   ImageCardsBlockRecord: ImageCardsBlock,
   InternalLinkBlockRecord: InternalLinkBlock,
+  ListBlockRecord: ListBlock,
   OrganisationsBlockRecord: OrganisationsBlock,
   PagePartialBlockRecord: PagePartialBlock,
   PeopleBlockRecord: PeopleBlock,
@@ -41,13 +43,18 @@ interface Props {
 }
 const { blocks } = Astro.props;
 ---
-{ blocks.map((block) => {
-  const typename = block.__typename as keyof typeof blocksByTypename;
-  const Block = blocksByTypename[typename];
-  return Block
-    // @ts-ignore next line
-    ? <Block block={ block } />
-    : <script define:vars={{ typename }} is:inline>
+
+{
+  blocks.map((block) => {
+    const typename = block.__typename as keyof typeof blocksByTypename;
+    const Block = blocksByTypename[typename];
+    return Block ? (
+      // @ts-ignore next line
+      <Block block={block} />
+    ) : (
+      <script define:vars={{ typename }} is:inline>
         console.log(`No Block found for "${typename}"`);
-    </script>;
-})}
+      </script>
+    );
+  })
+}

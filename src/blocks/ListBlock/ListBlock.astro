@@ -1,0 +1,54 @@
+---
+import type { StructuredText } from 'datocms-structured-text-utils';
+import type { ListBlockFragment } from '@lib/types/datocms';
+import Text from '@blocks/TextBlock/Text.astro';
+
+interface Props {
+  block: ListBlockFragment;
+}
+const { block } = Astro.props;
+const { style, text } = block;
+---
+
+<div class:list={['list', `list--${style}`]}>
+  <Text data={text as StructuredText} />
+</div>
+
+<style>
+  .list :global(ol, ul) {
+    text-align: left;
+    list-style-type: none;
+    padding-inline-start: 0;
+    counter-reset: listcounter;
+  }
+
+  .list :global(li) {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .list :global(li p) {
+    margin-block: 0.5em;
+  }
+
+  .list :global(li)::before {
+    --radius: 12px;
+    counter-increment: listcounter;
+    display: block;
+    flex: none;
+    background-color: #089b54;
+    width: calc(2 * var(--radius));
+    height: calc(2 * var(--radius));
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .list :global(ol li)::before {
+    content: counter(listcounter);
+  }
+
+  .list--checkmarks :global(li)::before {
+    content: '✓';
+  }
+</style>

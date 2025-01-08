@@ -37,4 +37,5 @@ fragment QuoteBlock on QuoteBlockRecord {
       }
     }
   }
+  style
 }

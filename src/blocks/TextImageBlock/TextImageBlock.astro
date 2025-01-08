@@ -6,24 +6,25 @@ import Figure from '@blocks/ImageBlock/Figure.astro';
 import Image from '@blocks/ImageBlock/Image.astro';
 
 interface Props {
-  block: TextImageBlockFragment
+  block: TextImageBlockFragment;
 }
 const { block } = Astro.props;
-const imageParams =
-  block.style === 'circle'
-    ? { ar: '1:1', fit: 'crop' }
-    : {};
+const imageParams = block.style === 'circle' ? { ar: '1:1', fit: 'crop' } : {};
 ---
 
-<div class="component">
+<div class='component'>
   <div class:list={['layout', `layout--${block.layout}`]}>
-    <div class="layout__item">
-      <Text data={ block.text as StructuredText } />
+    <div class='layout__item'>
+      <Text data={block.text as StructuredText} />
     </div>
-    <div class="layout__item layout__item--image">
-      <Figure title={ block.image.title }>
+    <div class='layout__item layout__item--image'>
+      <Figure title={block.image.title}>
         <div class:list={['image-canvas', `image-canvas--${block.style}`]}>
-          <Image image={ block.image } params={ imageParams } class:list={['image', `image--${block.style}`]} />
+          <Image
+            image={block.image}
+            params={imageParams}
+            class:list={['image', `image--${block.style}`]}
+          />
         </div>
       </Figure>
     </div>
@@ -31,98 +32,94 @@ const imageParams =
 </div>
 
 <style>
-/* turn component into a container, so styles can be applied relative to its dimensions: */
-.component {
-  container-type: inline-size;
-  container-name: component;
-}
-
-.image-canvas {
-  max-width: 500px;
-  margin-inline: auto;
-  margin-block-start: 50px;
-}
-
-/* side-by-side layout, if component is wide enough: */
-@container component (min-width: 760px) {
-  .layout {
-    display: flex;
-    align-items: center;
-    gap: 100px;
-  }
-  .layout--text-image {
-    flex-direction: row;
-  }
-  .layout--image-text {
-    flex-direction: row-reverse;
-  }
-  .layout__item {
-    flex: 1;
-    width: 50%;
+  /* turn component into a container, so styles can be applied relative to its dimensions: */
+  .component {
+    container-type: inline-size;
+    container-name: component;
   }
 
   .image-canvas {
-    margin-block-start: 0;
-    max-width: initial;
+    max-width: 500px;
+    margin-inline: auto;
+    margin-block-start: 50px;
   }
+
+  /* side-by-side layout, if component is wide enough: */
+  @container component (min-width: 760px) {
+    .layout {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+    }
+    .layout--text-image {
+      flex-direction: row;
+    }
+    .layout--image-text {
+      flex-direction: row-reverse;
+    }
+    .layout__item {
+      flex: 1;
+      width: 50%;
+    }
+
+    .image-canvas {
+      margin-block-start: 0;
+      max-width: initial;
+    }
+    .image-canvas--cards {
+      margin-inline-start: auto;
+    }
+    .image--circle :global(figure) {
+      max-width: 400px;
+    }
+    .layout--text-image .image--circle :global(figure) {
+      margin-inline-start: auto;
+    }
+    .layout--image-text .image--circle :global(figure) {
+      margin-inline-end: auto;
+    }
+  }
+  .layout__item--image {
+    margin-block: 30px;
+  }
+  .image--rounded {
+    border-radius: 10px;
+  }
+  .image--circle {
+    aspect-ratio: 1 !important;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
   .image-canvas--cards {
-    margin-inline-start: auto;
-  }
-  .image--circle :global(figure) {
+    position: relative;
     max-width: 400px;
   }
-  .layout--text-image .image--circle :global(figure) {
-    margin-inline-start: auto;
+  .image-canvas--cards::before,
+  .image-canvas--cards::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 95%;
+    height: 80%;
+    border-radius: 10px;
   }
-  .layout--image-text .image--circle :global(figure) {
-    margin-inline-end: auto;
+  .image-canvas--cards::before {
+    z-index: -1;
+    background-color: var(--saffron);
+    transform-origin: 30% 95%;
+    transform: rotate(-25deg);
   }
-}
-
-.layout :global(h1, h2) {
-  max-width: 500px;
-}
-.layout__item--image {
-  margin-block: 30px;
-}
-.image--rounded {
-  border-radius: 10px;
-}
-.image--circle {
-  aspect-ratio: 1 !important;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.image-canvas--cards {
-  position: relative;
-  max-width: 400px;
-}
-.image-canvas--cards::before,
-.image-canvas--cards::after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 95%;
-  height: 80%;
-  border-radius: 10px;
-}
-.image-canvas--cards::before {
-  z-index: -1;
-  background-color: var(--saffron);
-  transform-origin: 30% 95%;
-  transform: rotate(-25deg);
-}
-.image-canvas--cards::after {
-  z-index: -2;
-  background-color: var(--zaffre);
-  transform-origin: 5% 50%;
-  transform: rotate(20deg);
-}
-.image--cards {
-  border-radius: 10px;
-  margin-block: 30%;
-}
+  .image-canvas--cards::after {
+    z-index: -2;
+    background-color: var(--zaffre);
+    transform-origin: 5% 50%;
+    transform: rotate(20deg);
+  }
+  .image--cards {
+    border-radius: 10px;
+    margin-block: 30%;
+  }
 </style>
