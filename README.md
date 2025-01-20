@@ -1,7 +1,5 @@
 # No Dodos Website
 
-**Base setup on top of headless services to help you quickly start a new website**
-
 Codebase is based on [Head Start template](https://github.com/voorhoede/head-start).
 
 ## Documentation
