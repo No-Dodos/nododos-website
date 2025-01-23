@@ -4,6 +4,7 @@ import Text from '@blocks/TextBlock/Text.astro';
 import leafGreen from '@assets/images/leaf-green.svg';
 import leafMultiColor from '@assets/images/leaf-multicolor.svg';
 import leafPurple from '@assets/images/leaf-purple.svg';
+import InternalLinkBlock from '@blocks/InternalLink/InternalLinkBlock.astro';
 
 interface Props {
   block: TextCardsBlockFragment;
@@ -31,9 +32,14 @@ const getThemeClass = (index: number) =>
               class:list={['leaf', getImageClass(index)]}
             />
           )}
-          <div>
+          <div class="card__text">
             <h3>{item.title}</h3>
             <Text data={item.text} />
+            <div class="card__link">
+              { item.link?.page && (
+                <InternalLinkBlock block={item.link} />
+              )}
+            </div>
           </div>
         </div>
       ))
@@ -66,6 +72,9 @@ const getThemeClass = (index: number) =>
   }
   .card :global(h3) {
     margin-block-end: 0;
+  }
+  .card__link :global(a) {
+    min-width: 80%;
   }
   .leaf {
     display: block;
@@ -113,6 +122,14 @@ const getThemeClass = (index: number) =>
     }
     .leaf--purple {
       margin-right: -100px;
+    }
+    .card__text {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card__link {
+      margin-top: auto;
     }
   }
 </style>

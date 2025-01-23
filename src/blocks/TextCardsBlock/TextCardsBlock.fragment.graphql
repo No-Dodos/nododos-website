@@ -1,3 +1,4 @@
+#import '@blocks/InternalLink/InternalLinkBlock.fragment.graphql'
 #import '@lib/routing/PageRoute.fragment.graphql'
 
 fragment TextCardsBlock on TextCardsBlockRecord {
@@ -12,6 +13,9 @@ fragment TextCardsBlock on TextCardsBlockRecord {
         }
       }
       value
+    }
+    link {
+      ...InternalLinkBlock
     }
   }
   style
